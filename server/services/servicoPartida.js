@@ -62,7 +62,7 @@ function retomarMercadoPartida(idPartida) {
 
 /**
  * Reinicia todas as partidas restaurando o estado original ao vivo (União FC, Flamengo e Lakers).
- * Define status AO_VIVO, minuto 10, remove travas e restabelece as cotações para nova demonstração.
+ * Define status AO_VIVO, minuto 0, remove travas e restabelece as cotações para nova demonstração.
  */
 function reiniciarTodasPartidas() {
   const partidasPadrao = obterPartidasIniciais();
@@ -72,19 +72,27 @@ function reiniciarTodasPartidas() {
     p.lock_timestamp = 0;
 
     if (p.modalidade_esportiva === "BASQUETE") {
-      p.minuto_jogo = 10;
-      p.placar_casa = 24;
-      p.placar_fora = 22;
+      p.minuto_jogo = 0;
+      p.placar_casa = 0;
+      p.placar_fora = 0;
+      p.estatisticas = {
+        posseCasa: 50,
+        posseFora: 50,
+        chutesCasa: 0,
+        chutesFora: 0,
+        cestas3Casa: 0,
+        cestas3Fora: 0
+      };
       p.timeline = [
         { minuto: 1, tipo: "INFO", texto: "Partida de basquete iniciada/reiniciada para demonstração ao vivo." }
       ];
       if (p.odds && p.odds["VENCEDOR_1X2"]) {
-        p.odds["VENCEDOR_1X2"].CASA = 1.70;
+        p.odds["VENCEDOR_1X2"].CASA = 1.85;
         p.odds["VENCEDOR_1X2"].EMPATE = 15.00;
-        p.odds["VENCEDOR_1X2"].FORA = 2.15;
+        p.odds["VENCEDOR_1X2"].FORA = 1.95;
       }
     } else {
-      p.minuto_jogo = 10;
+      p.minuto_jogo = 0;
       p.placar_casa = 0;
       p.placar_fora = 0;
       p.timeline = [

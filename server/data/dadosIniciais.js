@@ -30,7 +30,7 @@ function obterPartidasIniciais() {
       time_fora: "Rio FC",
       placar_casa: 0,
       placar_fora: 0,
-      minuto_jogo: 10,
+      minuto_jogo: 0,
       status_partida: "AO_VIVO",
       lock_motivo: null,
       lock_timestamp: 0,
@@ -43,7 +43,7 @@ function obterPartidasIniciais() {
         escanteiosFora: 1
       },
       timeline: [
-        { minuto: 5, tipo: "INFO", texto: "Início de jogo dinâmico no Estádio Olímpico" }
+        { minuto: 1, tipo: "INFO", texto: "Partida iniciada no Estádio Olímpico" }
       ],
       odds: {
         "VENCEDOR_1X2": {
@@ -73,20 +73,20 @@ function obterPartidasIniciais() {
       time_fora: "Santos",
       placar_casa: 0,
       placar_fora: 0,
-      minuto_jogo: 12,
+      minuto_jogo: 0,
       status_partida: "AO_VIVO",
       lock_motivo: null,
       lock_timestamp: 0,
       estatisticas: {
-        posseCasa: 62,
-        posseFora: 38,
-        chutesCasa: 4,
-        chutesFora: 1,
-        escanteiosCasa: 3,
+        posseCasa: 50,
+        posseFora: 50,
+        chutesCasa: 0,
+        chutesFora: 0,
+        escanteiosCasa: 0,
         escanteiosFora: 0
       },
       timeline: [
-        { minuto: 5, tipo: "INFO", texto: "Início de jogo equilibrado no Maracanã" }
+        { minuto: 1, tipo: "INFO", texto: "Início de jogo equilibrado no Maracanã" }
       ],
       odds: {
         "VENCEDOR_1X2": {
@@ -114,31 +114,31 @@ function obterPartidasIniciais() {
       campeonato: "NBA Temporada Regular",
       time_casa: "LA Lakers",
       time_fora: "GS Warriors",
-      placar_casa: 84,
-      placar_fora: 81,
-      minuto_jogo: 36,
+      placar_casa: 0,
+      placar_fora: 0,
+      minuto_jogo: 0,
       status_partida: "AO_VIVO",
       lock_motivo: null,
       lock_timestamp: 0,
       estatisticas: {
-        posseCasa: 51,
-        posseFora: 49,
-        chutesCasa: 32,
-        chutesFora: 30,
-        escanteiosCasa: 12,
-        escanteiosFora: 14
+        posseCasa: 50,
+        posseFora: 50,
+        chutesCasa: 0,
+        chutesFora: 0,
+        cestas3Casa: 0,
+        cestas3Fora: 0
       },
       timeline: [
-        { minuto: 34, tipo: "INFO", texto: "Cesta de 3 pontos de Stephen Curry" }
+        { minuto: 1, tipo: "INFO", texto: "Início do 1º Quarto no Crypto.com Arena (Los Angeles)" }
       ],
       odds: {
         "VENCEDOR_1X2": {
-          CASA: 1.70,
+          CASA: 1.85,
           EMPATE: 15.00,
-          FORA: 2.15,
-          prevCasa: 1.70,
+          FORA: 1.95,
+          prevCasa: 1.85,
           prevEmpate: 15.00,
-          prevFora: 2.15
+          prevFora: 1.95
         }
       }
     }

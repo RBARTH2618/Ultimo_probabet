@@ -52,7 +52,7 @@ export function renderizarPaginaLobby() {
     if (estaEncerrada) {
       indicadorAoVivoHtml = `
         <span class="badge-finished">🏁 ENCERRADA</span>
-        <span class="match-minute" style="color: var(--text-dim); margin-left: 4px;">(90')</span>
+        <span class="match-minute" style="color: var(--text-dim); margin-left: 4px;">(${p.modalidade_esportiva === 'BASQUETE' ? "48'" : "90'"})</span>
       `;
     }
 

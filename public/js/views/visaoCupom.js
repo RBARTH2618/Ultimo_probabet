@@ -34,13 +34,30 @@ export function renderizarPaginaCupom() {
   const partida = EstadoApp.partidas.get(idPartida) || EstadoApp.partidas.get(15);
 
   if (partida) {
+    const ehBasquete = (partida.modalidade_esportiva === "BASQUETE");
     const elementoTitulo = document.getElementById("detail-match-title");
     if (elementoTitulo) {
-      elementoTitulo.innerText = `${partida.time_casa} ${partida.placar_casa} x ${partida.placar_fora} ${partida.time_fora} (${partida.minuto_jogo} min)`;
+      const statusSuffix = partida.status_partida === "ENCERRADA" ? ` - 🏁 ENCERRADA (${partida.minuto_jogo}')` : ` (${partida.minuto_jogo} min)`;
+      elementoTitulo.innerText = `${partida.time_casa} ${partida.placar_casa} x ${partida.placar_fora} ${partida.time_fora}${statusSuffix}`;
     }
 
-    const estatisticas = partida.estatisticas || { posseCasa: 58, posseFora: 42, chutesCasa: 8, chutesFora: 2, escanteiosCasa: 5, escanteiosFora: 1 };
-    
+    const estatisticas = partida.estatisticas || { posseCasa: 50, posseFora: 50, chutesCasa: 0, chutesFora: 0, escanteiosCasa: 0, escanteiosFora: 0 };
+
+    // Customiza rótulos de acordo com a modalidade esportiva (Futebol vs Basquete)
+    const label1 = document.getElementById("stat-label-1");
+    const label2 = document.getElementById("stat-label-2");
+    const label3 = document.getElementById("stat-label-3");
+
+    if (ehBasquete) {
+      if (label1) label1.innerText = "Posse de Bola (Eficiência)";
+      if (label2) label2.innerText = "Cestas Convertidas (FGM)";
+      if (label3) label3.innerText = "Cestas de 3 Pontos (3PT)";
+    } else {
+      if (label1) label1.innerText = "Posse de Bola";
+      if (label2) label2.innerText = "Chutes a Gol";
+      if (label3) label3.innerText = "Escanteios";
+    }
+
     // Barras de estatísticas comparativas
     const posseTxt = document.getElementById("stat-posse-txt");
     if (posseTxt) posseTxt.innerText = `${partida.time_casa} ${estatisticas.posseCasa}% vs ${estatisticas.posseFora}% ${partida.time_fora}`;
@@ -53,15 +70,17 @@ export function renderizarPaginaCupom() {
     if (chutesBar) chutesBar.style.width = `${(estatisticas.chutesCasa / (estatisticas.chutesCasa + estatisticas.chutesFora || 1)) * 100}%`;
 
     const escTxt = document.getElementById("stat-esc-txt");
-    if (escTxt) escTxt.innerText = `${estatisticas.escanteiosCasa} vs ${estatisticas.escanteiosFora}`;
+    const valCasa3 = ehBasquete ? (estatisticas.cestas3Casa || 0) : estatisticas.escanteiosCasa;
+    const valFora3 = ehBasquete ? (estatisticas.cestas3Fora || 0) : estatisticas.escanteiosFora;
+    if (escTxt) escTxt.innerText = `${valCasa3} vs ${valFora3}`;
     const escBar = document.getElementById("stat-esc-bar");
-    if (escBar) escBar.style.width = `${(estatisticas.escanteiosCasa / (estatisticas.escanteiosCasa + estatisticas.escanteiosFora || 1)) * 100}%`;
+    if (escBar) escBar.style.width = `${(valCasa3 / (valCasa3 + valFora3 || 1)) * 100}%`;
 
-    // Live Ticker de lances
+    // Live Ticker de lances com suporte a cestas de basquete
     const listaTicker = document.getElementById("ticker-feed-list");
     if (listaTicker && partida.timeline) {
       listaTicker.innerHTML = partida.timeline.map(item => `
-        <li class="ticker-item ${item.tipo === 'GOAL' ? 'goal' : item.tipo.includes('CARD') ? 'card' : ''}">
+        <li class="ticker-item ${item.tipo === 'GOAL' ? 'goal' : item.tipo === 'BASKET' ? 'goal' : item.tipo.includes('CARD') ? 'card' : ''}">
           <span>${item.minuto}'</span>
           <span>${item.texto}</span>
         </li>

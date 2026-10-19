@@ -74,24 +74,38 @@ class MotorPartida {
       if (partida.status_partida === STATUS_PARTIDA.ENCERRADA) continue;
       if (partida.status_partida === STATUS_PARTIDA.SUSPENSA) continue;
 
+      const ehBasquete = (partida.modalidade_esportiva === "BASQUETE");
+      const minutoMaximo = ehBasquete ? 48 : 90;
+
       // Avança 1 minuto a cada 4 ciclos (~10 segundos no relógio real)
-      if (this.contadorCiclos % 4 === 0 && partida.minuto_jogo < 90) {
+      if (this.contadorCiclos % 4 === 0 && partida.minuto_jogo < minutoMaximo) {
         partida.minuto_jogo += 1;
       }
 
       // [RF-02] Flutuação Estocástica de Cotações
       this.processarFlutuacaoCotacoes(partida);
 
-      // [RF-06] Simulação de Lances Ocasionais (Gol / Falta)
-      if (this.contadorCiclos % 16 === 0) {
-        const sorteio = Math.random();
-        if (sorteio < 0.35) {
-          this.dispararEventoAleatorio(partida);
+      // Simulação de Eventos / Pontuações conforme a modalidade esportiva:
+      if (ehBasquete) {
+        // [BASQUETE] Alta frequência de pontuação (NBA):
+        // A cada ciclo (2.5s reais), ocorre uma posse de bola com ~55% de chance de cesta (+2, +3 ou +1 pt).
+        // Isso faz com que os times alcancem realisticamente ~100 pontos ao final dos 48 minutos!
+        if (Math.random() < 0.55) {
+          this.dispararCestaBasquete(partida);
+        }
+      } else {
+        // [FUTEBOL] Baixa frequência de pontuação:
+        // A cada 16 ciclos (~40 segundos), 35% de chance de gol ou falta
+        if (this.contadorCiclos % 16 === 0) {
+          const sorteio = Math.random();
+          if (sorteio < 0.35) {
+            this.dispararEventoAleatorioFutebol(partida);
+          }
         }
       }
 
-      // [RF-07] Encerramento aos 90 minutos de jogo
-      if (partida.minuto_jogo >= 90 && partida.status_partida !== STATUS_PARTIDA.ENCERRADA) {
+      // [RF-07] Encerramento da partida (48 min para Basquete NBA e 90 min para Futebol)
+      if (partida.minuto_jogo >= minutoMaximo && partida.status_partida !== STATUS_PARTIDA.ENCERRADA) {
         this.finalizarPartida(partida);
       }
     }
@@ -126,9 +140,93 @@ class MotorPartida {
   }
 
   /**
-   * Sorteia aleatoriamente um cartão ou gol durante o andamento da partida.
+   * [BASQUETE] Simula a pontuação dinâmica e contínua do basquete (2 pontos, 3 pontos ou lance livre).
    */
-  dispararEventoAleatorio(partida) {
+  dispararCestaBasquete(partida) {
+    if (partida.status_partida === STATUS_PARTIDA.ENCERRADA) return;
+
+    // Sorteia time que converteu a posse (50% de chance para cada time)
+    const time = Math.random() > 0.48 ? "CASA" : "FORA";
+    const nomeTime = (time === "CASA") ? partida.time_casa : partida.time_fora;
+
+    // Sorteio de pontuação: 2 pontos (~70%), 3 pontos (~25%) ou Lance Livre 1 ponto (~5%)
+    const rand = Math.random();
+    let pontos = 2;
+    let tipoTexto = "Cesta de 2 pts";
+
+    if (rand < 0.26) {
+      pontos = 3;
+      tipoTexto = "Cesta de 3 pts do perímetro";
+    } else if (rand > 0.94) {
+      pontos = 1;
+      tipoTexto = "Lance livre convertido";
+    }
+
+    if (time === "CASA") {
+      partida.placar_casa += pontos;
+      if (partida.estatisticas) {
+        partida.estatisticas.chutesCasa = (partida.estatisticas.chutesCasa || 0) + 1;
+        if (pontos === 3) partida.estatisticas.cestas3Casa = (partida.estatisticas.cestas3Casa || 0) + 1;
+      }
+    } else {
+      partida.placar_fora += pontos;
+      if (partida.estatisticas) {
+        partida.estatisticas.chutesFora = (partida.estatisticas.chutesFora || 0) + 1;
+        if (pontos === 3) partida.estatisticas.cestas3Fora = (partida.estatisticas.cestas3Fora || 0) + 1;
+      }
+    }
+
+    const autoresCasa = [
+      "LeBron James em infiltração com enterrada fulminante!",
+      "Anthony Davis com gancho clássico no garrafão!",
+      "Austin Reaves em arremesso rápido da linha dos 3!",
+      "D'Angelo Russell com arremesso perfeito de meia distância!",
+      "LeBron James com drible cruzado e bandeja!"
+    ];
+    const autoresFora = [
+      "Stephen Curry com arremesso espetacular do meio da rua!",
+      "Klay Thompson em tiro clássico de média distância!",
+      "Jonathan Kuminga com enterrada agressiva no contra-ataque!",
+      "Draymond Green com infiltração potente na bandeja!",
+      "Stephen Curry com finta e tiro de longa distância!"
+    ];
+
+    const lista = (time === "CASA") ? autoresCasa : autoresFora;
+    const autorEscolhido = lista[Math.floor(Math.random() * lista.length)];
+    const descricao = `🏀 ${tipoTexto} do ${nomeTime}! (${partida.minuto_jogo}') - ${autorEscolhido}`;
+
+    partida.timeline.unshift({
+      minuto: partida.minuto_jogo,
+      tipo: "BASKET",
+      texto: descricao
+    });
+
+    if (partida.timeline.length > 25) {
+      partida.timeline.pop();
+    }
+
+    // Broadcast da pontuação de basquete
+    this.broadcast({
+      event: EVENTOS_WS.GAME_EVENT,
+      type: "BASKET",
+      matchId: partida.id_partida,
+      time: nomeTime,
+      points: pontos,
+      minute: partida.minuto_jogo,
+      description: descricao,
+      score: {
+        casa: partida.placar_casa,
+        fora: partida.placar_fora
+      },
+      status: partida.status_partida,
+      timestamp: new Date().toISOString()
+    });
+  }
+
+  /**
+   * Sorteia aleatoriamente um cartão ou gol para partidas de futebol.
+   */
+  dispararEventoAleatorioFutebol(partida) {
     const tipos = ["CARD_YELLOW", "GOAL", "CARD_YELLOW"];
     const sorteado = tipos[Math.floor(Math.random() * tipos.length)];
 
@@ -137,6 +235,17 @@ class MotorPartida {
       this.dispararGol(partida.id_partida, time, "Lance ao vivo na área!");
     } else {
       this.dispararCartao(partida.id_partida);
+    }
+  }
+
+  /**
+   * Alias retroativo para dispararEventoAleatorioFutebol
+   */
+  dispararEventoAleatorio(partida) {
+    if (partida.modalidade_esportiva === "BASQUETE") {
+      this.dispararCestaBasquete(partida);
+    } else {
+      this.dispararEventoAleatorioFutebol(partida);
     }
   }
 
@@ -240,20 +349,23 @@ class MotorPartida {
   }
 
   /**
-   * [RF-07] Finaliza a partida aos 90 minutos e liquida os bilhetes em aberto.
+   * [RF-07] Finaliza a partida no tempo regulamentar (48 min para Basquete, 90 min para Futebol) e liquida os bilhetes.
    */
   finalizarPartida(partida) {
-    partida.minuto_jogo = 90;
+    const ehBasquete = (partida.modalidade_esportiva === "BASQUETE");
+    const minutoFinal = ehBasquete ? 48 : 90;
+    partida.minuto_jogo = minutoFinal;
     partida.lock_motivo = null;
     partida.lock_timestamp = 0;
 
-    console.log(`🏁 [FIM DE JOGO] Partida #${partida.id_partida} encerrada aos 90 min. Liquidando apostas...`);
+    console.log(`🏁 [FIM DE JOGO] Partida #${partida.id_partida} (${partida.modalidade_esportiva}) encerrada aos ${minutoFinal} min. Placar: ${partida.placar_casa} x ${partida.placar_fora}. Liquidando apostas...`);
     const liquidacoes = servicoLiquidacao.liquidarApostasDaPartida(partida.id_partida);
 
     // Broadcast para todos: fim de jogo
     this.broadcast({
       event: EVENTOS_WS.MATCH_FINISHED,
       matchId: partida.id_partida,
+      minutoFinal: minutoFinal,
       placarFinal: {
         casa: partida.placar_casa,
         fora: partida.placar_fora
@@ -283,7 +395,7 @@ class MotorPartida {
   }
 
   /**
-   * [RF-07] Finaliza todas as partidas em andamento aos 90 minutos.
+   * [RF-07] Finaliza todas as partidas em andamento aos 48 min (basquete) ou 90 min (futebol).
    * Liquida os bilhetes em aberto (GREEN / RED) e atualiza os saldos e o ranking da turma.
    */
   finalizarTodasPartidas() {
@@ -292,13 +404,13 @@ class MotorPartida {
 
     for (const partida of partidas) {
       if (partida.status_partida !== STATUS_PARTIDA.ENCERRADA) {
-        partida.minuto_jogo = 90;
+        partida.minuto_jogo = (partida.modalidade_esportiva === "BASQUETE") ? 48 : 90;
         this.finalizarPartida(partida);
         contadorFinalizadas++;
       }
     }
 
-    console.log(`🏁 [DEMO ACADÊMICA] ${contadorFinalizadas} partida(s) em andamento foram finalizadas aos 90 min.`);
+    console.log(`🏁 [DEMO ACADÊMICA] ${contadorFinalizadas} partida(s) em andamento foram finalizadas com sucesso.`);
   }
 
   /**

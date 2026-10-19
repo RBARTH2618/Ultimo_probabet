@@ -34,15 +34,37 @@ function flutuarCotacoesDaPartida(partida) {
   const cotacaoAnteriorEmpate = cotacoes1x2.EMPATE;
   const cotacaoAnteriorFora = cotacoes1x2.FORA;
 
-  // Gerador de micropasso aleatório (-0.05 a +0.05)
-  const deltaCasa = Number(((Math.random() - 0.49) * 0.08).toFixed(2));
-  const deltaEmpate = Number(((Math.random() - 0.50) * 0.06).toFixed(2));
-  const deltaFora = Number(((Math.random() - 0.50) * 0.10).toFixed(2));
+  if (partida.modalidade_esportiva === "BASQUETE") {
+    // [BASQUETE] No basquete da NBA, empates no tempo regulamentar são extremamente improváveis.
+    // A odd do Empate oscila suavemente entre 12.00 e 20.00.
+    const deltaEmpate = Number(((Math.random() - 0.50) * 0.15).toFixed(2));
+    cotacoes1x2.EMPATE = Number(Math.max(12.00, Math.min(22.00, cotacoes1x2.EMPATE + deltaEmpate)).toFixed(2));
 
-  // Aplica as novas cotações respeitando limites mínimos realistas
-  cotacoes1x2.CASA = Number(Math.max(1.05, cotacoes1x2.CASA + deltaCasa).toFixed(2));
-  cotacoes1x2.EMPATE = Number(Math.max(1.10, cotacoes1x2.EMPATE + deltaEmpate).toFixed(2));
-  cotacoes1x2.FORA = Number(Math.max(1.05, cotacoes1x2.FORA + deltaFora).toFixed(2));
+    // A probabilidade de vitória varia de acordo com a vantagem de pontos (spread) e tempo decorrido:
+    const diferencaPontos = (partida.placar_casa || 0) - (partida.placar_fora || 0);
+    const pesoTempo = 1 + ((partida.minuto_jogo || 0) / 48); // Quanto mais perto do fim, mais decisiva a vantagem
+
+    let baseCasa = 1.90 - (diferencaPontos * 0.04 * pesoTempo);
+    let baseFora = 1.90 + (diferencaPontos * 0.04 * pesoTempo);
+
+    // Micropasso estocástico natural do mercado
+    const deltaEstocastico = (Math.random() - 0.50) * 0.06;
+    baseCasa += deltaEstocastico;
+    baseFora -= deltaEstocastico;
+
+    // Garante limites realistas de odds
+    cotacoes1x2.CASA = Number(Math.max(1.05, Math.min(15.00, baseCasa)).toFixed(2));
+    cotacoes1x2.FORA = Number(Math.max(1.05, Math.min(15.00, baseFora)).toFixed(2));
+  } else {
+    // [FUTEBOL] Modelo estocástico clássico
+    const deltaCasa = Number(((Math.random() - 0.49) * 0.08).toFixed(2));
+    const deltaEmpate = Number(((Math.random() - 0.50) * 0.06).toFixed(2));
+    const deltaFora = Number(((Math.random() - 0.50) * 0.10).toFixed(2));
+
+    cotacoes1x2.CASA = Number(Math.max(1.05, cotacoes1x2.CASA + deltaCasa).toFixed(2));
+    cotacoes1x2.EMPATE = Number(Math.max(1.10, cotacoes1x2.EMPATE + deltaEmpate).toFixed(2));
+    cotacoes1x2.FORA = Number(Math.max(1.05, cotacoes1x2.FORA + deltaFora).toFixed(2));
+  }
 
   // Determina o sentido para as animações no frontend (verde / vermelho)
   const direcoes = {

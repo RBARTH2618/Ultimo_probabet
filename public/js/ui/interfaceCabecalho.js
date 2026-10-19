@@ -95,6 +95,9 @@ export function exibirBannerEventoJogo(evento) {
   if (evento.type === "GOAL") {
     if (elementoIcone) elementoIcone.innerText = "⚽";
     if (elementoTitulo) elementoTitulo.innerText = "GOL CONFIRMADO!";
+  } else if (evento.type === "BASKET") {
+    if (elementoIcone) elementoIcone.innerText = "🏀";
+    if (elementoTitulo) elementoTitulo.innerText = `CESTA DE ${evento.points || 2} PONTOS!`;
   } else {
     if (elementoIcone) elementoIcone.innerText = "🟨";
     if (elementoTitulo) elementoTitulo.innerText = "CARTÃO / FALTA";

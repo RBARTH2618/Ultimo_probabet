@@ -102,7 +102,7 @@ export function processarEventoServidor(msg) {
     // ==========================================================================
     case EVENTOS_WS.GAME_EVENT: {
       exibirBannerEventoJogo(msg);
-      tocarEfeitoSonoro(msg.type === "GOAL" ? "goal" : "whistle");
+      tocarEfeitoSonoro(msg.type === "GOAL" ? "goal" : msg.type === "BASKET" ? "basket" : "whistle");
 
       const partida = EstadoApp.partidas.get(msg.matchId);
       if (partida) {
@@ -204,7 +204,7 @@ export function processarEventoServidor(msg) {
       const partida = EstadoApp.partidas.get(msg.matchId);
       if (partida) {
         partida.status_partida = "ENCERRADA";
-        partida.minuto_jogo = 90;
+        partida.minuto_jogo = msg.minutoFinal || (partida.modalidade_esportiva === "BASQUETE" ? 48 : 90);
         if (msg.placarFinal) {
           partida.placar_casa = msg.placarFinal.casa;
           partida.placar_fora = msg.placarFinal.fora;

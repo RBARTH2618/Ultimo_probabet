@@ -52,7 +52,8 @@ function calcularValorCashOut(bilhete, partida) {
   if (bilhete.selecao === "FORA" && placar_fora > placar_casa) statusFavoravel = true;
   if (bilhete.selecao === "EMPATE" && empate) statusFavoravel = true;
 
-  const progressoTempo = Math.min(minuto_jogo / 90, 0.98);
+  const duracaoTotal = (partida.modalidade_esportiva === "BASQUETE") ? 48 : 90;
+  const progressoTempo = Math.min(minuto_jogo / duracaoTotal, 0.98);
   let valorEstimado = bilhete.valor_apostado;
 
   if (statusFavoravel) {

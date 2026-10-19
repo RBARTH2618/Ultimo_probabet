@@ -50,6 +50,15 @@ export function tocarEfeitoSonoro(tipo = "whistle") {
       ganho.gain.exponentialRampToValueAtTime(0.01, agora + 0.6);
       oscilador.start(agora);
       oscilador.stop(agora + 0.6);
+    } else if (tipo === "basket") {
+      // Efeito sonoro harmônico de cesta de basquete (Swish / Sucesso)
+      oscilador.type = "sine";
+      oscilador.frequency.setValueAtTime(659.25, agora); // Mi5
+      oscilador.frequency.exponentialRampToValueAtTime(987.77, agora + 0.12); // Si5
+      ganho.gain.setValueAtTime(0.18, agora);
+      ganho.gain.exponentialRampToValueAtTime(0.01, agora + 0.3);
+      oscilador.start(agora);
+      oscilador.stop(agora + 0.3);
     } else if (tipo === "cashout" || tipo === "win") {
       // Dois bipes agudos harmoniosos de ganho financeiro
       oscilador.type = "sine";
