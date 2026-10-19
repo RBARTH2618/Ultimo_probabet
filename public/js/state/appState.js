@@ -1,19 +1,10 @@
 /**
  * ==============================================================================
  * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: js/state/appState.js - Armazenamento de Estado Global do Cliente
- * Responsabilidade Única: Manter o estado centralizado e reativo do cliente web.
+ * Módulo: js/state/appState.js - Ponte de Compatibilidade (Inglês -> Português)
+ * ==============================================================================
+ * Re-exporta o estado de js/state/estadoAplicacao.js.
  * ==============================================================================
  */
 
-export const AppState = {
-  ws: null,
-  userId: null,
-  userName: null,
-  balance: 100.00,
-  matches: new Map(),
-  activeBets: [],
-  selectedSlip: null,
-  currentSportFilter: "TODOS",
-  audioContext: null
-};
+export * from "./estadoAplicacao.js";

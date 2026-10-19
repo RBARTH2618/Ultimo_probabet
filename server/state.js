@@ -4,40 +4,54 @@
  * Módulo: state.js - Fachada de Compatibilidade (Facade Pattern)
  * ==============================================================================
  * Este arquivo atua como uma fachada unificada para os módulos especializados:
- *  - services/userService.js
- *  - services/matchService.js
- *  - services/bettingService.js
- *  - services/cashoutService.js
- *  - services/settlementService.js
+ *  - services/servicoUsuario.js
+ *  - services/servicoPartida.js
+ *  - services/servicoAposta.js
+ *  - services/servicoCashout.js
+ *  - services/servicoLiquidacao.js
  * ==============================================================================
  */
 
-const userService = require("./services/userService");
-const matchService = require("./services/matchService");
-const bettingService = require("./services/bettingService");
-const cashoutService = require("./services/cashoutService");
-const settlementService = require("./services/settlementService");
+const servicoUsuario = require("./services/servicoUsuario");
+const servicoPartida = require("./services/servicoPartida");
+const servicoAposta = require("./services/servicoAposta");
+const servicoCashout = require("./services/servicoCashout");
+const servicoLiquidacao = require("./services/servicoLiquidacao");
 
 module.exports = {
-  // Usuários e Ranking
-  createOrGetUser: userService.createOrGetUser,
-  getUser: userService.getUser,
-  resetUserBalance: userService.resetUserBalance,
-  getRanking: userService.getRanking,
+  // Apostadores e Ranking
+  obterOuCriarApostador: servicoUsuario.obterOuCriarApostador,
+  createOrGetUser: servicoUsuario.obterOuCriarApostador,
+  obterApostador: servicoUsuario.obterApostador,
+  getUser: servicoUsuario.obterApostador,
+  redefinirSaldoApostador: servicoUsuario.redefinirSaldoApostador,
+  resetUserBalance: servicoUsuario.redefinirSaldoApostador,
+  obterClassificacaoRanking: servicoUsuario.obterClassificacaoRanking,
+  getRanking: servicoUsuario.obterClassificacaoRanking,
 
   // Partidas e Mercados
-  getMatches: matchService.getAllMatches,
-  getMatch: matchService.getMatch,
-  suspendMatch: matchService.suspendMatch,
-  resumeMatch: matchService.resumeMatch,
-  resetMatch: matchService.resetMatch,
+  obterTodasPartidas: servicoPartida.obterTodasPartidas,
+  getMatches: servicoPartida.obterTodasPartidas,
+  obterPartida: servicoPartida.obterPartidaPorId,
+  getMatch: servicoPartida.obterPartidaPorId,
+  suspenderMercadoPartida: servicoPartida.suspenderMercadoPartida,
+  suspendMatch: servicoPartida.suspenderMercadoPartida,
+  retomarMercadoPartida: servicoPartida.retomarMercadoPartida,
+  resumeMatch: servicoPartida.retomarMercadoPartida,
+  reiniciarPartida: servicoPartida.reiniciarPartida,
+  resetMatch: servicoPartida.reiniciarPartida,
 
   // Apostas e Cash Out
-  placeBet: bettingService.placeBet,
-  calculateCashOutValue: cashoutService.calculateCashOutValue,
-  executeCashOut: cashoutService.executeCashOut,
-  getUserBets: cashoutService.getUserBets,
+  efetuarAposta: servicoAposta.efetuarAposta,
+  placeBet: servicoAposta.efetuarAposta,
+  calcularValorCashOut: servicoCashout.calcularValorCashOut,
+  calculateCashOutValue: servicoCashout.calculateCashOutValue,
+  executarCashOut: servicoCashout.executarCashOut,
+  executeCashOut: servicoCashout.executeCashOut,
+  obterBilhetesDoApostador: servicoCashout.obterBilhetesDoApostador,
+  getUserBets: servicoCashout.obterBilhetesDoApostador,
 
   // Liquidação
-  settleBetsForMatch: settlementService.settleBetsForMatch
+  liquidarApostasDaPartida: servicoLiquidacao.liquidarApostasDaPartida,
+  settleBetsForMatch: servicoLiquidacao.liquidarApostasDaPartida
 };

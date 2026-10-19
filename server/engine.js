@@ -3,10 +3,10 @@
  * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
  * Módulo: engine.js - Fachada de Compatibilidade (Facade Pattern)
  * ==============================================================================
- * Re-exporta o motor modularizado de engine/matchEngine.js.
+ * Re-exporta o motor modularizado de engine/motorPartida.js.
  * ==============================================================================
  */
 
-const MatchEngine = require("./engine/matchEngine");
+const MotorPartida = require("./engine/motorPartida");
 
-module.exports = MatchEngine;
+module.exports = MotorPartida;
