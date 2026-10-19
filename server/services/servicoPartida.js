@@ -20,6 +20,7 @@
  */
 
 const bancoDados = require("../data/bancoDados");
+const { obterPartidasIniciais } = require("../data/dadosIniciais");
 const { STATUS_PARTIDA } = require("../config/constantes");
 
 /**
@@ -60,10 +61,34 @@ function retomarMercadoPartida(idPartida) {
 }
 
 /**
- * Reinicia a partida para o minuto 10 com placar 0x0 para demonstração aos professores.
+ * Reinicia todas as partidas restaurando o estado original ao vivo (União FC, Flamengo e Lakers).
+ */
+function reiniciarTodasPartidas() {
+  const partidasPadrao = obterPartidasIniciais();
+  partidasPadrao.forEach(p => {
+    bancoDados.partidas.set(p.id_partida, p);
+  });
+  return Array.from(bancoDados.partidas.values());
+}
+
+/**
+ * Reinicia uma partida específica ou todas as partidas caso idPartida seja "TODAS" ou omitido.
  */
 function reiniciarPartida(idPartida) {
-  const partida = obterPartidaPorId(idPartida);
+  if (!idPartida || idPartida === "TODAS") {
+    return reiniciarTodasPartidas();
+  }
+
+  const idNum = Number(idPartida);
+  const partidasIniciais = obterPartidasIniciais();
+  const partidaPadrao = partidasIniciais.find(p => p.id_partida === idNum);
+
+  if (partidaPadrao) {
+    bancoDados.partidas.set(idNum, partidaPadrao);
+    return partidaPadrao;
+  }
+
+  const partida = obterPartidaPorId(idNum);
   if (!partida) return null;
 
   partida.placar_casa = 0;
@@ -91,10 +116,12 @@ module.exports = {
   suspenderMercadoPartida,
   retomarMercadoPartida,
   reiniciarPartida,
+  reiniciarTodasPartidas,
   // Aliases para compatibilidade retroativa
   getAllMatches: obterTodasPartidas,
   getMatch: obterPartidaPorId,
   suspendMatch: suspenderMercadoPartida,
   resumeMatch: retomarMercadoPartida,
-  resetMatch: reiniciarPartida
+  resetMatch: reiniciarPartida,
+  resetAllMatches: reiniciarTodasPartidas
 };

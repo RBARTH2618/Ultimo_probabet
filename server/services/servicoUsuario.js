@@ -39,7 +39,20 @@ function obterOuCriarApostador(idApostador, nome = "Apostador", saldoInicial = C
       data_cadastro: new Date().toISOString()
     };
     bancoDados.salvarApostador(idApostador, apostador);
+  } else if (nome && nome !== "Apostador" && apostador.nome_completo !== nome) {
+    // Atualiza o nome caso o apostador tenha personalizado o perfil
+    apostador.nome_completo = nome;
   }
+  return apostador;
+}
+
+/**
+ * Atualiza o nome do apostador pelo ID.
+ */
+function atualizarNomeApostador(idApostador, novoNome) {
+  const apostador = obterApostador(idApostador);
+  if (!apostador) return null;
+  apostador.nome_completo = novoNome;
   return apostador;
 }
 
@@ -98,6 +111,7 @@ function obterClassificacaoRanking() {
 module.exports = {
   obterOuCriarApostador,
   obterApostador,
+  atualizarNomeApostador,
   debitarSaldoApostador,
   creditarSaldoApostador,
   redefinirSaldoApostador,
@@ -105,6 +119,7 @@ module.exports = {
   // Aliases para compatibilidade retroativa
   createOrGetUser: obterOuCriarApostador,
   getUser: obterApostador,
+  updateUserName: atualizarNomeApostador,
   debitUser: debitarSaldoApostador,
   creditUser: creditarSaldoApostador,
   resetUserBalance: redefinirSaldoApostador,

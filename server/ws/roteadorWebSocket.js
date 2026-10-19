@@ -179,11 +179,39 @@ function processarMensagemCliente(ws, mensagem, motor) {
     }
 
     // ==========================================================================
-    // DEMO DIDÁTICA: REINICIAR PARTIDA DE DEMONSTRAÇÃO
+    // ATUALIZAÇÃO DO NOME DO APOSTADOR (PERFIL / RANKING)
+    // ==========================================================================
+    case EVENTOS_WS.UPDATE_USER_NAME: {
+      const novoNome = (mensagem.userName || mensagem.nome || "").trim();
+      if (novoNome) {
+        servicoUsuario.atualizarNomeApostador(idApostador, novoNome);
+        metadados.nomeApostador = novoNome;
+        metadados.userName = novoNome;
+
+        console.log(`👤 [PERFIL ATUALIZADO] Apostador ${idApostador} alterou nome para: "${novoNome}"`);
+
+        // Confirma para o cliente solicitante
+        ws.send(JSON.stringify({
+          event: "USER_NAME_UPDATED",
+          userName: novoNome,
+          message: `Nome atualizado para "${novoNome}" com sucesso!`
+        }));
+
+        // Transmite imediatamente para todos o ranking com o novo nome
+        gatewayWebSocket.transmitirParaTodos({
+          event: EVENTOS_WS.RANKING_UPDATE,
+          ranking: servicoUsuario.obterClassificacaoRanking()
+        });
+      }
+      break;
+    }
+
+    // ==========================================================================
+    // DEMO DIDÁTICA: REINICIAR PARTIDAS DE DEMONSTRAÇÃO
     // ==========================================================================
     case EVENTOS_WS.DEMO_RESET_MATCH: {
-      const idPartida = Number(mensagem.matchId || 15);
-      motor.reiniciarPartida(idPartida);
+      const matchId = mensagem.matchId || "TODAS";
+      motor.reiniciarPartida(matchId);
       break;
     }
 

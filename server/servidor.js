@@ -98,6 +98,9 @@ wss.on("connection", (ws, req) => {
 
   // [RF-01] Vincula ou recupera a sessão do apostador com saldo de R$ 100,00
   const apostador = servicoUsuario.obterOuCriarApostador(idSolicitado, nomeSolicitado, 100.00);
+  if (nomeSolicitado && !nomeSolicitado.startsWith("Apostador #") && apostador.nome_completo !== nomeSolicitado) {
+    apostador.nome_completo = nomeSolicitado;
+  }
   gatewayWebSocket.registrarCliente(ws, { idApostador: apostador.id_apostador, nomeApostador: apostador.nome_completo });
 
   console.log(`🔌 [WS CONECTADO] Apostador: ${apostador.nome_completo} (ID: ${apostador.id_apostador}) | Saldo: R$ ${apostador.saldo_ficticio.toFixed(2)}`);

@@ -48,6 +48,7 @@ const EVENTOS_WS = {
   GET_WALLET: "GET_WALLET",               // Solicitação dos dados da carteira do usuário
   WALLET_INFO: "WALLET_INFO",             // Resposta com saldo e lista de bilhetes
   RESET_BALANCE: "RESET_BALANCE",         // Comando didático para restaurar saldo para R$ 100,00
+  UPDATE_USER_NAME: "UPDATE_USER_NAME",   // Atualização do nome do apostador no perfil/ranking
   
   // --- Eventos da Simulação de Partida [RF-06] ---
   GAME_EVENT: "GAME_EVENT",               // Notificação de gol ou cartão com suspensão de mercado

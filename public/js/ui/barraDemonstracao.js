@@ -47,24 +47,39 @@ export function demonstracaoResetarSaldo() {
 }
 
 /**
- * Reinicia o tempo e placar da partida de demonstração (União FC vs Rio FC).
+ * Reinicia as partidas de demonstração (todas as partidas voltam a ficar AO VIVO).
  */
-export function demonstracaoReiniciarJogo() {
+export function demonstracaoReiniciarJogo(idPartida = "TODAS") {
   if (!EstadoApp.ws) return;
   EstadoApp.ws.send(JSON.stringify({
     type: EVENTOS_WS.DEMO_RESET_MATCH,
-    matchId: 15
+    matchId: idPartida
   }));
 }
 
 /**
- * Abre prompt para alterar o nome do apostador e recarregar a visualização no ranking.
+ * Abre prompt para alterar o nome do apostador e atualiza instantaneamente no servidor e no ranking.
  */
 export function demonstracaoAlterarNome() {
-  const novoNome = prompt("Digite seu nome de apostador para o Ranking da Turma:", EstadoApp.nomeApostador);
+  const nomeAtual = EstadoApp.nomeApostador || localStorage.getItem("probabet_userName") || "";
+  const novoNome = prompt("Digite seu nome de apostador para o Ranking da Turma:", nomeAtual);
   if (novoNome && novoNome.trim()) {
-    atualizarNomeApostador(novoNome.trim());
-    window.location.reload();
+    const nomeLimpo = novoNome.trim();
+    atualizarNomeApostador(nomeLimpo);
+
+    // Atualiza imediatamente na interface local
+    const elementoNome = document.getElementById("header-username");
+    if (elementoNome) elementoNome.innerText = nomeLimpo;
+
+    // Envia para o backend para atualizar o banco de dados e refletir no ranking em tempo real
+    if (EstadoApp.ws && EstadoApp.ws.readyState === WebSocket.OPEN) {
+      EstadoApp.ws.send(JSON.stringify({
+        type: EVENTOS_WS.UPDATE_USER_NAME,
+        userName: nomeLimpo
+      }));
+    } else {
+      window.location.reload();
+    }
   }
 }
 

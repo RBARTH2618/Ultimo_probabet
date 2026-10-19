@@ -56,6 +56,9 @@ export function processarEventoServidor(msg) {
     // ==========================================================================
     case EVENTOS_WS.HANDSHAKE_SUCCESS: {
       EstadoApp.saldo = Number(msg.balance);
+      if (msg.userName) {
+        EstadoApp.nomeApostador = msg.userName;
+      }
       if (Array.isArray(msg.matches)) {
         msg.matches.forEach(p => EstadoApp.partidas.set(p.id_partida, p));
       }
@@ -230,10 +233,20 @@ export function processarEventoServidor(msg) {
     }
 
     case EVENTOS_WS.MATCH_RESET: {
-      if (msg.match) {
+      if (Array.isArray(msg.matches)) {
+        msg.matches.forEach(m => EstadoApp.partidas.set(m.id_partida, m));
+      } else if (msg.match) {
         EstadoApp.partidas.set(msg.match.id_partida, msg.match);
       }
       renderizarConteudoPaginaAtual();
+      break;
+    }
+
+    case "USER_NAME_UPDATED": {
+      if (msg.userName) {
+        EstadoApp.nomeApostador = msg.userName;
+        atualizarInterfaceCabecalho();
+      }
       break;
     }
 

@@ -288,9 +288,23 @@ class MotorPartida {
   }
 
   /**
-   * Comando de demonstração didática para reiniciar o jogo 15.
+   * Comando de demonstração didática para reiniciar as partidas.
+   * Se idPartida for "TODAS" ou omitido, reinicia todas as partidas (União FC, Flamengo e Lakers).
    */
-  reiniciarPartida(idPartida) {
+  reiniciarPartida(idPartida = "TODAS") {
+    if (!idPartida || idPartida === "TODAS") {
+      const partidas = servicoPartida.reiniciarTodasPartidas();
+      console.log(`🔄 [DEMO] Todas as partidas foram reiniciadas com sucesso.`);
+
+      this.broadcast({
+        event: EVENTOS_WS.MATCH_RESET,
+        matchId: "TODAS",
+        matches: partidas,
+        timestamp: new Date().toISOString()
+      });
+      return;
+    }
+
     const partida = servicoPartida.reiniciarPartida(idPartida);
     if (!partida) return;
 
@@ -300,6 +314,7 @@ class MotorPartida {
       event: EVENTOS_WS.MATCH_RESET,
       matchId: partida.id_partida,
       match: partida,
+      matches: servicoPartida.obterTodasPartidas(),
       timestamp: new Date().toISOString()
     });
   }
