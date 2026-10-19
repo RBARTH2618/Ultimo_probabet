@@ -1,0 +1,390 @@
+/* ==============================================================================
+   PROBABET - Estilos de Detalhes da Partida & Bet Slip (Tela 2)
+   Módulo: css/betslip.css
+   Responsabilidade Única: Estilizar layout split, estatísticas, ticker e cupom.
+   ============================================================================== */
+
+.layout-split {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 24px;
+}
+
+@media (max-width: 960px) {
+  .layout-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Painel de Detalhes da Partida */
+.match-detail-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 24px;
+}
+
+.live-match-banner {
+  background: linear-gradient(135deg, #111827, #1e293b);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  border: 1px solid #334155;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.live-match-banner h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+/* Estatísticas Comparativas */
+.stats-section {
+  margin-bottom: 24px;
+}
+
+.stats-section h3 {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
+}
+
+.stat-item {
+  margin-bottom: 14px;
+}
+
+.stat-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.stat-progress-bg {
+  background: #0f172a;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+}
+
+.stat-progress-bar-home {
+  background: var(--accent-blue);
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+.stat-progress-bar-away {
+  background: var(--accent-orange);
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+/* Live Ticker (Feed WebSocket dos Lances) */
+.live-ticker-panel {
+  background: #090d15;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.ticker-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+}
+
+.ticker-list {
+  list-style: none;
+  max-height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ticker-item {
+  font-size: 0.82rem;
+  padding: 8px 12px;
+  background: #121824;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--accent-blue);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: fadeInDown 0.3s ease;
+}
+
+.ticker-item.goal {
+  border-left-color: var(--accent-gold);
+  background: rgba(255, 193, 7, 0.1);
+  font-weight: 600;
+}
+
+.ticker-item.card {
+  border-left-color: var(--accent-red);
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Caderneta de Apostas Lateral (Bet Slip) */
+.bet-slip-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  position: sticky;
+  top: 90px;
+  box-shadow: var(--shadow-card);
+}
+
+.slip-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+}
+
+.slip-empty-state {
+  text-align: center;
+  padding: 40px 10px;
+  color: var(--text-dim);
+}
+
+.slip-empty-state svg {
+  margin-bottom: 12px;
+  opacity: 0.4;
+}
+
+/* Card da Seleção Ativa no Slip */
+.slip-selection-card {
+  background: #0b0f19;
+  border: 1px solid #1e293b;
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.slip-sel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.slip-match-name {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.btn-remove-selection {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: var(--transition-fast);
+}
+
+.btn-remove-selection:hover {
+  color: var(--accent-red);
+  background: rgba(255, 51, 75, 0.1);
+}
+
+.slip-market-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.slip-market-pick {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.slip-odd-highlight {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--accent-green);
+  background: var(--accent-green-bg);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* Alerta de Mudança de Odd no Bet Slip */
+.odd-changed-alert {
+  background: rgba(255, 152, 0, 0.15);
+  border: 1px solid var(--accent-orange);
+  color: #ffb74d;
+  font-size: 0.78rem;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  margin-top: 10px;
+  display: none;
+}
+.odd-changed-alert.visible {
+  display: block;
+}
+
+/* Campo de Valor e Atalhos */
+.stake-input-group {
+  margin-bottom: 16px;
+}
+
+.stake-input-group label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.input-money-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-currency-prefix {
+  position: absolute;
+  left: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.input-money {
+  width: 100%;
+  background: #090d15;
+  border: 1px solid var(--border-color);
+  color: #ffffff;
+  padding: 10px 12px 10px 42px;
+  border-radius: var(--radius-sm);
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: 'Outfit', sans-serif;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.input-money:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 10px rgba(0, 176, 255, 0.25);
+}
+
+.quick-stakes-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.btn-quick-stake {
+  flex: 1;
+  background: var(--bg-card-alt);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btn-quick-stake:hover {
+  background: var(--bg-card-hover);
+  color: #ffffff;
+  border-color: #3b82f6;
+}
+
+/* Retorno Potencial */
+.potential-payout-box {
+  background: rgba(0, 230, 118, 0.08);
+  border: 1px dashed rgba(0, 230, 118, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.payout-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.payout-value {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--accent-green);
+}
+
+/* Alerta de Saldo Insuficiente */
+.insufficient-funds-msg {
+  background: rgba(255, 51, 75, 0.15);
+  border: 1px solid var(--accent-red);
+  color: #ff99a4;
+  font-size: 0.8rem;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 14px;
+  display: none;
+}
+.insufficient-funds-msg.visible {
+  display: block;
+}
+
+/* Botão Confirmar Aposta [WS] */
+.btn-confirm-bet {
+  width: 100%;
+  background: linear-gradient(135deg, #00e676, #00b0ff);
+  border: none;
+  color: #05140b;
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: var(--transition-fast);
+  box-shadow: 0 4px 15px rgba(0, 230, 118, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-confirm-bet:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 230, 118, 0.45);
+  filter: brightness(1.1);
+}
+
+.btn-confirm-bet:disabled {
+  background: #1e293b;
+  color: var(--text-dim);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}

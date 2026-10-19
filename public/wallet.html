@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PROBABET - Carteira do Apostador e Gestão de Cash Out em Tempo Real (WebSocket)">
+  <title>PROBABET | Carteira & Cash Out (Tela 3)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ==============================================================================
+       1. CABEÇALHO GLOBAL & STATUS DE CONEXÃO FULL-DUPLEX (RF-01, RF-08)
+       ============================================================================== -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-section">
+        <a href="index.html" class="brand-logo" id="brand-logo-link">
+          ⚡ PROBA<span class="highlight">BET</span>
+        </a>
+        <span class="brand-badge">Ao Vivo WS</span>
+        <div id="ws-status" class="ws-status-badge disconnected">
+          <span class="status-dot"></span> <span>Conectando...</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="user-wallet-card" id="user-wallet-display">
+          <div class="user-info">
+            <span class="user-name" id="header-username">Carregando...</span>
+            <span class="wallet-balance" id="header-balance">R$ 100,00</span>
+          </div>
+          <button class="btn-header btn-reset" onclick="demoResetBalance()" title="Redefinir Saldo para R$ 100,00">
+            🔄 Reset
+          </button>
+        </div>
+
+        <button class="btn-header" onclick="demoChangeUserName()" title="Alterar Nome do Apostador">
+          👤 Perfil
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==============================================================================
+       2. BARRA DE NAVEGAÇÃO ENTRE PROTÓTIPOS
+       ============================================================================== -->
+  <nav class="nav-tabs-bar">
+    <div class="nav-tabs-container">
+      <a href="index.html" class="nav-tab-item" id="nav-lobby">
+        <span>🏟️ 1. Lobby de Odds</span>
+      </a>
+      <a href="betslip.html" class="nav-tab-item" id="nav-betslip">
+        <span>📋 2. Detalhes & Bet Slip</span>
+      </a>
+      <a href="wallet.html" class="nav-tab-item active" id="nav-wallet">
+        <span>💼 3. Carteira & Cash Out</span>
+        <span class="nav-counter" id="nav-active-bets-count">0</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ==============================================================================
+       3. BANNER POP-UP DE GOL / EVENTO (RF-06 & RNF-01)
+       ============================================================================== -->
+  <aside id="event-banner" class="event-banner-overlay" role="alert" aria-live="assertive">
+    <div class="banner-content">
+      <div id="banner-icon" class="banner-icon">⚽</div>
+      <div class="banner-details">
+        <h3 id="banner-title">GOL CONFIRMADO!</h3>
+        <p id="banner-desc">Lance decisivo na partida!</p>
+        <div class="banner-suspended-tag">
+          <span>🔒 Mercado Temporariamente Suspenso (RNF-01 Ativo)</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==============================================================================
+       4. CONTEÚDO PRINCIPAL: TELA 3 (CARTEIRA & GESTÃO DE CASH OUT)
+       ============================================================================== -->
+  <main class="main-wrapper">
+    <!-- Cartão Principal de Saldo -->
+    <section class="wallet-hero-card" aria-label="Visão Geral da Carteira">
+      <div>
+        <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600;">
+          Saldo Disponível para Apostas ou Saque
+        </span>
+        <div class="wallet-hero-balance" id="wallet-hero-balance-val">R$ 100,00</div>
+        <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 4px;">
+          Sessão com sincronização bidirecional instantânea via WebSocket (< 100 ms).
+        </p>
+      </div>
+
+      <div>
+        <a href="index.html" class="btn-header" style="background: var(--accent-green); color: #041208; border: none; font-weight: 700; padding: 10px 18px;">
+          ➕ Nova Aposta no Lobby
+        </a>
+      </div>
+    </section>
+
+    <!-- Seção de Apostas e Cash Out -->
+    <section aria-labelledby="wallet-management-heading">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;">
+        <h1 id="wallet-management-heading" style="font-size: 1.25rem; font-weight: 800; color: #fff;">
+          💼 Minha Carteira & Gestão de Apostas em Tempo Real
+        </h1>
+        <span style="font-size: 0.8rem; color: var(--text-dim);">
+          Valores de Cash Out recalculados continuamente pelo algoritmo do servidor
+        </span>
+      </div>
+
+      <!-- Abas de Filtro de Apostas -->
+      <div class="wallet-tabs-bar" role="tablist">
+        <button class="wallet-tab-btn active" data-tab="ativas" onclick="switchWalletTab('ativas', this)" role="tab">
+          🟢 Apostas Ao Vivo (Com Cash Out)
+        </button>
+        <button class="wallet-tab-btn" data-tab="encerradas" onclick="switchWalletTab('encerradas', this)" role="tab">
+          📁 Histórico Recente (GREEN / RED / CASH OUT)
+        </button>
+      </div>
+
+      <!-- Lista de Bilhetes Renderizada via app.js -->
+      <div id="wallet-active-bets" class="bets-list-container">
+        <div class="slip-empty-state">
+          <p>Carregando bilhetes de aposta da sua carteira...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- [RF-08] Tabela de Ranking em Tempo Real -->
+    <section class="ranking-section" aria-labelledby="ranking-wallet-heading">
+      <h2 id="ranking-wallet-heading" class="ranking-title">
+        🏆 Ranking de Saldo dos Apostadores Conectados
+      </h2>
+      <table class="ranking-table">
+        <thead>
+          <tr>
+            <th style="width: 60px;">Posição</th>
+            <th>Apostador</th>
+            <th style="width: 150px;">Saldo Fictício</th>
+          </tr>
+        </thead>
+        <tbody id="ranking-table-body">
+          <!-- Renderizado via app.js -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- ==============================================================================
+       5. BARRA FLUTUANTE DE CONTROLE ACADÊMICO (DEMO TOOLBAR)
+       ============================================================================== -->
+  <aside class="demo-control-bar" aria-label="Controles Didáticos de Demonstração">
+    <span class="demo-tag">Modo Didático</span>
+    <button class="btn-demo demo-goal" onclick="demoTriggerGoal()" title="Dispara Gol ao mesmo tempo que clica em Cash Out para demonstrar a rejeição de Race Condition (RNF-01)">
+      ⚽ Forçar Gol (RF-06 / RNF-01)
+    </button>
+    <button class="btn-demo" onclick="demoResetMatch()">
+      🔄 Reiniciar Jogo
+    </button>
+    <button class="btn-demo" onclick="demoResetBalance()">
+      💰 Resetar Saldo
+    </button>
+  </aside>
+
+  <!-- Script Modular do Cliente Frontend (ES6 Modules) -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+/* ==============================================================================
+   PROBABET - Estilos de Cabeçalho e Navegação
+   Módulo: css/header.css
+   Responsabilidade Única: Estilizar o cabeçalho global, badges e abas de navegação.
+   ============================================================================== */
+
+.app-header {
+  background: rgba(18, 24, 36, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 12px 24px;
+}
+
+.header-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-logo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.brand-logo span.highlight {
+  color: var(--accent-green);
+  background: linear-gradient(135deg, #00e676, #00b0ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-badge {
+  font-size: 0.65rem;
+  background: var(--bg-card-alt);
+  color: var(--accent-blue);
+  border: 1px solid rgba(0, 176, 255, 0.3);
+  padding: 2px 8px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+}
+
+/* Indicador de Status do WebSocket */
+.ws-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border-color);
+  transition: var(--transition-fast);
+}
+
+.ws-status-badge .status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.ws-status-badge.connected {
+  color: var(--accent-green);
+  border-color: rgba(0, 230, 118, 0.3);
+}
+.ws-status-badge.connected .status-dot {
+  background-color: var(--accent-green);
+  box-shadow: 0 0 8px var(--accent-green);
+}
+
+.ws-status-badge.disconnected {
+  color: var(--accent-red);
+  border-color: rgba(255, 51, 75, 0.4);
+  background: rgba(255, 51, 75, 0.1);
+}
+.ws-status-badge.disconnected .status-dot {
+  background-color: var(--accent-red);
+  box-shadow: 0 0 8px var(--accent-red);
+}
+
+/* Carteira / Saldo Fictício no Topo */
+.user-wallet-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  padding: 6px 14px;
+  border-radius: var(--radius-md);
+}
+
+.user-info {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.wallet-balance {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--accent-green);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.wallet-balance.balance-pulse {
+  animation: balanceGlow 0.8s ease;
+}
+
+@keyframes balanceGlow {
+  0% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.1); filter: brightness(1.6); color: #fff; }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+
+/* Botões de Ação no Header */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-header {
+  background: var(--bg-card-alt);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition-fast);
+  text-decoration: none;
+}
+
+.btn-header:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent-blue);
+  color: #fff;
+}
+
+.btn-header.btn-reset {
+  color: var(--accent-orange);
+  border-color: rgba(255, 152, 0, 0.4);
+}
+.btn-header.btn-reset:hover {
+  background: rgba(255, 152, 0, 0.15);
+}
+
+/* Barra de Navegação Entre Telas */
+.nav-tabs-bar {
+  background: #0d121c;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 24px;
+}
+
+.nav-tabs-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  gap: 24px;
+}
+
+.nav-tab-item {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 12px 6px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition-fast);
+}
+
+.nav-tab-item:hover {
+  color: var(--text-main);
+}
+
+.nav-tab-item.active {
+  color: var(--accent-green);
+}
+
+.nav-tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent-green);
+  box-shadow: 0 0 10px var(--accent-green);
+}
+
+.nav-counter {
+  background: var(--bg-card-alt);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  padding: 2px 7px;
+  border-radius: 12px;
+}
+
+.nav-tab-item.active .nav-counter {
+  background: var(--accent-green-bg);
+  color: var(--accent-green);
+}

@@ -1,0 +1,23 @@
+{
+  "name": "probabet",
+  "version": "1.0.0",
+  "description": "PROBABET - Plataforma de Apostas Esportivas em Tempo Real com WebSocket (UniRV)",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node server/server.js"
+  },
+  "keywords": [
+    "websocket",
+    "sports-betting",
+    "real-time",
+    "didactic",
+    "unirv"
+  ],
+  "author": "Antigravity & João Lucas",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "ws": "^8.18.0"
+  }
+}

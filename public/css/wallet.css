@@ -1,0 +1,163 @@
+/* ==============================================================================
+   PROBABET - Estilos da Carteira e Cash Out (Tela 3)
+   Módulo: css/wallet.css
+   Responsabilidade Única: Estilizar saldo hero, lista de bilhetes e botões de cash out.
+   ============================================================================== */
+
+.wallet-hero-card {
+  background: linear-gradient(135deg, #101726, #1a2338);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wallet-hero-balance {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--accent-green);
+  margin-top: 4px;
+}
+
+.wallet-tabs-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+}
+
+.wallet-tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.wallet-tab-btn.active {
+  background: var(--bg-card);
+  color: #ffffff;
+  border: 1px solid var(--border-color);
+}
+
+.bets-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Card de Aposta Ativa com Botão de Cash Out Dinâmico */
+.bet-ticket-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: var(--transition-fast);
+}
+
+.bet-ticket-card:hover {
+  background: var(--bg-card-hover);
+  border-color: #334155;
+}
+
+.ticket-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.ticket-id-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  background: rgba(0, 176, 255, 0.12);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.ticket-match-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.ticket-details-row {
+  display: flex;
+  gap: 16px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.ticket-status-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.ticket-status-badge.status-ativa {
+  background: rgba(0, 176, 255, 0.15);
+  color: var(--accent-blue);
+}
+
+.ticket-status-badge.status-green {
+  background: rgba(0, 230, 118, 0.2);
+  color: var(--accent-green);
+}
+
+.ticket-status-badge.status-red {
+  background: rgba(255, 51, 75, 0.2);
+  color: var(--accent-red);
+}
+
+.ticket-status-badge.status-cash_out {
+  background: rgba(255, 152, 0, 0.2);
+  color: var(--accent-orange);
+}
+
+/* [RF-04 & RF-05] Botão de Cash Out em Destaque */
+.btn-cashout {
+  background: linear-gradient(135deg, #ff9800, #f57c00);
+  border: none;
+  color: #ffffff;
+  padding: 12px 22px;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition-fast);
+  box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+  white-space: nowrap;
+}
+
+.btn-cashout:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 152, 0, 0.5);
+  filter: brightness(1.1);
+}
+
+.btn-cashout:disabled {
+  background: #252e3e;
+  color: var(--text-dim);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}

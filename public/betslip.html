@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PROBABET - Detalhes da Partida e Bet Slip (Caderneta de Apostas com WebSocket)">
+  <title>PROBABET | Detalhes & Bet Slip (Tela 2)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ==============================================================================
+       1. CABEÇALHO GLOBAL & STATUS DE CONEXÃO FULL-DUPLEX (RF-01, RF-08)
+       ============================================================================== -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-section">
+        <a href="index.html" class="brand-logo" id="brand-logo-link">
+          ⚡ PROBA<span class="highlight">BET</span>
+        </a>
+        <span class="brand-badge">Ao Vivo WS</span>
+        <div id="ws-status" class="ws-status-badge disconnected">
+          <span class="status-dot"></span> <span>Conectando...</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="user-wallet-card" id="user-wallet-display">
+          <div class="user-info">
+            <span class="user-name" id="header-username">Carregando...</span>
+            <span class="wallet-balance" id="header-balance">R$ 100,00</span>
+          </div>
+          <button class="btn-header btn-reset" onclick="demoResetBalance()" title="Redefinir Saldo para R$ 100,00">
+            🔄 Reset
+          </button>
+        </div>
+
+        <button class="btn-header" onclick="demoChangeUserName()" title="Alterar Nome do Apostador">
+          👤 Perfil
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==============================================================================
+       2. BARRA DE NAVEGAÇÃO ENTRE PROTÓTIPOS
+       ============================================================================== -->
+  <nav class="nav-tabs-bar">
+    <div class="nav-tabs-container">
+      <a href="index.html" class="nav-tab-item" id="nav-lobby">
+        <span>🏟️ 1. Lobby de Odds</span>
+      </a>
+      <a href="betslip.html" class="nav-tab-item active" id="nav-betslip">
+        <span>📋 2. Detalhes & Bet Slip</span>
+      </a>
+      <a href="wallet.html" class="nav-tab-item" id="nav-wallet">
+        <span>💼 3. Carteira & Cash Out</span>
+        <span class="nav-counter" id="nav-active-bets-count">0</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ==============================================================================
+       3. BANNER POP-UP DE GOL / EVENTO (RF-06 & RNF-01)
+       ============================================================================== -->
+  <aside id="event-banner" class="event-banner-overlay" role="alert" aria-live="assertive">
+    <div class="banner-content">
+      <div id="banner-icon" class="banner-icon">⚽</div>
+      <div class="banner-details">
+        <h3 id="banner-title">GOL CONFIRMADO!</h3>
+        <p id="banner-desc">Lance decisivo na partida!</p>
+        <div class="banner-suspended-tag">
+          <span>🔒 Mercado Temporariamente Suspenso (RNF-01 Ativo)</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==============================================================================
+       4. CONTEÚDO PRINCIPAL: TELA 2 (DETALHES DA PARTIDA & BET SLIP LATERAL)
+       ============================================================================== -->
+  <main class="main-wrapper" id="betslip-container">
+    <div class="layout-split">
+      
+      <!-- COLUNA DA ESQUERDA: ESTATÍSTICAS E LIVE TICKER -->
+      <section class="match-detail-panel" aria-labelledby="detail-match-title">
+        <div class="live-match-banner">
+          <div class="live-indicator" style="justify-content: center; margin-bottom: 6px;">
+            <span class="live-pulse-dot"></span>
+            <span>TRANSMISSÃO AO VIVO VIA WEBSOCKET</span>
+          </div>
+          <h1 id="detail-match-title">União FC 1 x 0 Rio FC (67 min)</h1>
+          <p style="color: var(--text-dim); font-size: 0.85rem;">Campeonato Brasileiro Série A • Maracanã</p>
+        </div>
+
+        <!-- Estatísticas da Partida (Barras Comparativas) -->
+        <div class="stats-section">
+          <h3>📊 Estatísticas da Partida em Tempo Real</h3>
+
+          <div class="stat-item">
+            <div class="stat-header">
+              <span>Posse de Bola</span>
+              <span id="stat-posse-txt">União 58% vs 42% Rio FC</span>
+            </div>
+            <div class="stat-progress-bg">
+              <div id="stat-posse-bar" class="stat-progress-bar-home" style="width: 58%;"></div>
+              <div class="stat-progress-bar-away" style="width: 42%;"></div>
+            </div>
+          </div>
+
+          <div class="stat-item">
+            <div class="stat-header">
+              <span>Chutes a Gol</span>
+              <span id="stat-chutes-txt">8 vs 2</span>
+            </div>
+            <div class="stat-progress-bg">
+              <div id="stat-chutes-bar" class="stat-progress-bar-home" style="width: 80%;"></div>
+              <div class="stat-progress-bar-away" style="width: 20%;"></div>
+            </div>
+          </div>
+
+          <div class="stat-item">
+            <div class="stat-header">
+              <span>Escanteios</span>
+              <span id="stat-esc-txt">5 vs 1</span>
+            </div>
+            <div class="stat-progress-bg">
+              <div id="stat-esc-bar" class="stat-progress-bar-home" style="width: 83%;"></div>
+              <div class="stat-progress-bar-away" style="width: 17%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Ticker Feed (WS Feed) -->
+        <div class="live-ticker-panel">
+          <div class="ticker-header">
+            <span>📡 LIVE TICKER (FEED WEBSOCKET)</span>
+          </div>
+          <ul id="ticker-feed-list" class="ticker-list">
+            <li class="ticker-item goal">
+              <span>67'</span> <span>⚽ Gol do União FC! (Carlos Silva)</span>
+            </li>
+            <li class="ticker-item card">
+              <span>62'</span> <span>🟨 Cartão Amarelo para camisa 5 do Rio FC</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- COLUNA DA DIREITA: CADERNETA LATERAL (BET SLIP) -->
+      <aside class="bet-slip-panel" aria-label="Caderneta de Apostas (Bet Slip)">
+        <h2 class="slip-title">
+          <span>🧾 Bilhete de Aposta (Bet Slip)</span>
+        </h2>
+
+        <div id="slip-content-wrapper">
+          <!-- Renderizado via app.js -->
+          <div class="slip-empty-state">
+            <p>Carregando dados da aposta...</p>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- ==============================================================================
+       5. MODAL DE COMPROVANTE DE APOSTA (TICKET ID)
+       ============================================================================== -->
+  <div id="bet-confirmed-modal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 style="color: var(--accent-green); display: flex; align-items: center; gap: 8px;">
+          <span>✅ Aposta Registrada com Sucesso!</span>
+        </h3>
+      </div>
+      <div class="modal-body">
+        <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 16px;">
+          Seu bilhete foi validado e debitado atomicamente via WebSocket.
+        </p>
+
+        <div style="background: #090d15; border: 1px solid var(--border-color); border-radius: 6px; padding: 14px; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: var(--text-dim); font-size: 0.8rem;">Código do Comprovante:</span>
+            <strong id="modal-ticket-id" style="color: var(--accent-blue);">#1032</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: var(--text-dim); font-size: 0.8rem;">Partida:</span>
+            <strong id="modal-match-title">União FC vs Rio FC</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: var(--text-dim); font-size: 0.8rem;">Seleção & Odd:</span>
+            <strong id="modal-pick-info">CASA (1.80)</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: var(--text-dim); font-size: 0.8rem;">Valor Apostado:</span>
+            <strong id="modal-stake-val" style="color: #fff;">R$ 20,00</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-top: 1px solid #1e293b; padding-top: 8px;">
+            <span style="color: var(--text-muted); font-weight: 600;">Retorno Máximo:</span>
+            <strong id="modal-payout-val" style="color: var(--accent-green); font-size: 1.1rem;">R$ 36,00</strong>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-confirm-bet" style="padding: 10px 20px;" onclick="closeModalAndGoToWallet()">
+          💼 Acompanhar na Carteira (Cash Out)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================================================
+       6. BARRA FLUTUANTE DE CONTROLE ACADÊMICO (DEMO TOOLBAR)
+       ============================================================================== -->
+  <aside class="demo-control-bar" aria-label="Controles Didáticos de Demonstração">
+    <span class="demo-tag">Modo Didático</span>
+    <button class="btn-demo demo-goal" onclick="demoTriggerGoal()" title="Dispara Gol para testar suspensão e RNF-01">
+      ⚽ Forçar Gol (RF-06 / RNF-01)
+    </button>
+    <button class="btn-demo" onclick="demoResetMatch()">
+      🔄 Reiniciar Jogo
+    </button>
+    <button class="btn-demo" onclick="demoResetBalance()">
+      💰 Resetar Saldo
+    </button>
+  </aside>
+
+  <!-- Script Modular do Cliente Frontend (ES6 Modules) -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
