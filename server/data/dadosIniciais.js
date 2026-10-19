@@ -1,20 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: data/dadosIniciais.js - Carga Inicial de Dados de Demonstração (Seeds)
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o provedor de dados de exemplo (seed data) para quando o servidor é ligado.
- * 
- * ⚙️ O QUE ELE FAZ?
- * Cria partidas esportivas ao vivo (Futebol e Basquete) com placares, estatísticas,
- * cotações (odds) iniciais e apostadores fictícios para preencher o ranking da turma.
- * 
- * 📍 ONDE É USADO?
- * Utilizado pelo banco de dados em memória (bancoDados.js) na inicialização do sistema.
- * ==============================================================================
- */
 
 /**
  * Retorna a lista de partidas esportivas simuladas para a demonstração.

@@ -1,23 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: js/audio/efeitosSonoros.js - Sintetizador de Áudio (Web Audio API)
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o módulo gerador de efeitos sonoros sintetizados em tempo real no navegador.
- * 
- * ⚙️ O QUE ELE FAZ?
- * Utiliza a Web Audio API nativa do HTML5 (sem arquivos MP3 externos pesados) para sintetizar:
- *  - Apito curto de árbitro ("whistle"): Para faltas e início de jogo.
- *  - Som festivo ascendente ("goal"): Quando ocorre um gol ao vivo [RF-06].
- *  - Dois bipes agudos de sucesso ("cashout" ou "win"): Ao confirmar Cash Out [RF-05] ou vencer [RF-07].
- *  - Som grave descendente ("error"): Em caso de rejeição por trava atômica [RNF-01].
- * 
- * 📍 ONDE É USADO?
- * Disparado pelo despachante de eventos (manipuladorEventos.js) ao receber notificações do servidor.
- * ==============================================================================
- */
 
 import { EstadoApp } from "../state/estadoAplicacao.js";
 

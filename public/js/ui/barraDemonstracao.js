@@ -1,24 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: js/ui/barraDemonstracao.js - Controles da Barra de Demonstração Acadêmica
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o módulo que gerencia a barra de ferramentas didáticas flutuante no rodapé da tela.
- * 
- * ⚙️ O QUE ELE FAZ?
- * Permite ao apresentador do trabalho acadêmico (João Lucas):
- *  1. Forçar um Gol instantâneo na partida para provar ao professor que o mercado
- *     congela e que o Cash Out é bloqueado pela trava atômica [RNF-01].
- *  2. Reiniciar a partida 15 (minuto 10, placar 0x0) para repetir a simulação.
- *  3. Restaurar o saldo da carteira para R$ 100,00 caso tenha zerado nas apostas.
- *  4. Alterar o nome do apostador para testar múltiplos usuários disputando o ranking [RF-08].
- * 
- * 📍 ONDE É USADO?
- * Disparado pelos botões da barra didática presentes nas 3 telas do protótipo.
- * ==============================================================================
- */
 
 import { EstadoApp } from "../state/estadoAplicacao.js";
 import { atualizarNomeApostador } from "../state/sessao.js";

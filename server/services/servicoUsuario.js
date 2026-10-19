@@ -1,23 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: services/servicoUsuario.js - Gestão de Apostadores, Saldo e Ranking
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o serviço de domínio responsável pelos usuários (apostadores) e suas carteiras financeiras.
- * 
- * ⚙️ O QUE ELE FAZ?
- *  - Cria ou recupera a sessão do apostador vinculando o saldo inicial de R$ 100,00 [RF-01].
- *  - Executa débitos atômicos para submissão de apostas [RNF-02].
- *  - Executa créditos atômicos para recebimento de prêmios ou cash out [RF-05, RF-07].
- *  - Gera a tabela de classificação (Ranking) ordenada por maior saldo [RF-08].
- *  - Permite redefinir o saldo para R$ 100,00 para fins didáticos.
- * 
- * 📍 ONDE É USADO?
- * Usado pelo gateway WebSocket (no handshake), pelo roteador de eventos e na finalização de jogos.
- * ==============================================================================
- */
 
 const bancoDados = require("../data/bancoDados");
 const { CONFIGURACOES } = require("../config/constantes");

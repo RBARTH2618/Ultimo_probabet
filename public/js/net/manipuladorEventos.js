@@ -1,27 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: js/net/manipuladorEventos.js - Despachante de Eventos do Servidor
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o roteador de eventos do cliente. Quando o servidor transmite uma mensagem
- * WebSocket (seja broadcast ou unicast), este arquivo interpreta e decide qual
- * tela ou componente visual atualizar.
- * 
- * ⚙️ O QUE ELE FAZ?
- *  - [RF-01] HANDSHAKE_SUCCESS: Recebe saldo inicial R$ 100,00, partidas e bilhetes.
- *  - [RF-02] ODDS_UPDATE: Atualiza cotações e setas de subida/queda nas telas.
- *  - [RF-06] GAME_EVENT: Mostra banner de Gol/Cartão e toca apito ou som comemorativo.
- *  - [RF-03] BET_CONFIRMED / REJECTED: Exibe comprovante #Ticket ID ou aviso de erro.
- *  - [RF-05] CASH_OUT_CONFIRMED / REJECTED: Atualiza saldo ou alerta de mercado suspenso [RNF-01].
- *  - [RF-07] BET_SETTLED: Informa se a aposta foi GREEN ou RED aos 90 min e credita ganhos.
- *  - [RF-08] BALANCE_UPDATE & RANKING_UPDATE: Sincroniza saldo e classificação da turma.
- * 
- * 📍 ONDE É USADO?
- * Invocado pelo ouvinte onmessage de clienteWebSocket.js.
- * ==============================================================================
- */
 
 import { EstadoApp } from "../state/estadoAplicacao.js";
 import { atualizarInterfaceCabecalho, exibirBannerEventoJogo } from "../ui/interfaceCabecalho.js";

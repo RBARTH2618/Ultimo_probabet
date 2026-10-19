@@ -1,22 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: js/state/sessao.js - Gerenciador de Sessão e Persistência Local
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o módulo que cuida da persistência de dados no navegador do apostador.
- * 
- * ⚙️ O QUE ELE FAZ?
- *  - Salva e recupera o ID e o Nome do Apostador usando `localStorage` para que a
- *    sessão se mantenha ao recarregar a página.
- *  - Salva a cotação selecionada no `sessionStorage` para permitir navegar da Tela 1
- *    (Lobby) para a Tela 2 (Bet Slip) sem perder o palpite escolhido.
- * 
- * 📍 ONDE É USADO?
- * Chamado na inicialização da aplicação (principal.js) e ao clicar numa odd no Lobby.
- * ==============================================================================
- */
 
 import { EstadoApp } from "./estadoAplicacao.js";
 

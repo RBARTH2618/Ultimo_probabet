@@ -1,22 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: services/servicoAposta.js - Submissão e Validação Atômica de Apostas
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o serviço central de processamento e validação financeira de apostas esportivas.
- * 
- * ⚙️ O QUE ELE FAZ?
- *  - Implementa o requisito [RF-03]: Recebe o frame PLACE_BET contendo ID do jogo, mercado, seleção, odd e valor.
- *  - Implementa o requisito [RNF-02]: Garante saldo não negativo por verificação e débito atômico imediato.
- *  - Valida se o mercado está aberto (não suspenso por gol ou lance perigoso).
- *  - Gera o bilhete único numerado (#Ticket ID) e calcula o Retorno Potencial (Valor × Odd).
- * 
- * 📍 ONDE É USADO?
- * Chamado pelo roteador WebSocket (roteadorWebSocket.js) ao receber a mensagem PLACE_BET.
- * ==============================================================================
- */
 
 const bancoDados = require("../data/bancoDados");
 const servicoUsuario = require("./servicoUsuario");

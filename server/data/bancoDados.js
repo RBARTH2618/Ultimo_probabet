@@ -1,23 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: data/bancoDados.js - Repositório de Estado em Memória (Banco de Dados Mock)
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o banco de dados simulado em memória (RAM) do servidor.
- * 
- * ⚙️ O QUE ELE FAZ?
- * Armazena e gerencia as 4 coleções centrais do sistema (modeladas no ERD do projeto):
- *   1. apostadores: Usuários cadastrados, com nome, CPF e saldo fictício [RF-01, RF-08].
- *   2. partidas: Jogos ao vivo com placar, minuto, status e cotações [RF-02, RF-06].
- *   3. bilhetes: Cupons de aposta submetidos e seus status (ATIVA, GREEN, RED, CASH_OUT) [RF-03, RF-07].
- *   4. transacoesCashout: Histórico de auditoria de encerramentos antecipados [RF-05].
- * 
- * 📍 ONDE É USADO?
- * Consumido por todos os serviços de domínio (servicoUsuario, servicoPartida, servicoAposta, etc).
- * ==============================================================================
- */
 
 const { obterPartidasIniciais, obterApostadoresIniciaisRanking } = require("./dadosIniciais");
 const { CONFIGURACOES } = require("../config/constantes");

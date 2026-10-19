@@ -1,25 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: engine/motorPartida.js - Motor da Partida e Loop de Simulação Temporal
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o coração ("engine") da aplicação. O orquestrador temporal de eventos ao vivo.
- * 
- * ⚙️ O QUE ELE FAZ?
- *  - Mantém o loop temporal contínuo a cada ~2.5 segundos (via setInterval) [RF-02].
- *  - Avança o cronômetro do jogo (1 minuto a cada 10 segundos reais).
- *  - Executa a flutuação das cotações e envia o broadcast ODDS_UPDATE [RF-02].
- *  - Emite o pulso periódico de recálculo de Cash Out (CASHOUT_HEARTBEAT) [RF-04].
- *  - Dispara eventos aleatórios de gols ou cartões com suspensão temporária do mercado [RF-06, RNF-01].
- *  - Finaliza o jogo aos 90 minutos, liquidando bilhetes em GREEN/RED e atualizando o ranking [RF-07, RF-08].
- *  - Oferece comandos manuais de demonstração para a apresentação acadêmica.
- * 
- * 📍 ONDE É USADO?
- * Instanciado no servidor principal (servidor.js / server.js) com callbacks de broadcast e unicast.
- * ==============================================================================
- */
 
 const servicoPartida = require("../services/servicoPartida");
 const servicoLiquidacao = require("../services/servicoLiquidacao");

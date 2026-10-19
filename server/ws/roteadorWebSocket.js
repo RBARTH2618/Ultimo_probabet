@@ -1,27 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: ws/roteadorWebSocket.js - Roteador de Mensagens e Comandos do Cliente
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É a central de controle que recebe os frames JSON enviados pelo navegador e os
- * encaminha para o respectivo serviço de domínio responsável.
- * 
- * ⚙️ O QUE ELE FAZ?
- *  - Interpreta mensagens do tipo:
- *     1. PLACE_BET: Repassa para servicoAposta.js registrar o cupom [RF-03].
- *     2. CASH_OUT: Repassa para servicoCashout.js executar o resgate [RF-05, RNF-01].
- *     3. GET_WALLET: Devolve saldo e bilhetes do usuário.
- *     4. RESET_BALANCE: Restaura saldo para R$ 100,00 [RF-01].
- *     5. DEMO_TRIGGER_GOAL / DEMO_RESET_MATCH: Dispara ações didáticas de apresentação.
- *  - Envia as respostas diretas para o socket do cliente (confirmações/rejeições)
- *    e notifica os demais usuários via broadcast quando necessário (ex: ranking atualizado).
- * 
- * 📍 ONDE É USADO?
- * Chamado pelo listener de 'message' do WebSocket em servidor.js.
- * ==============================================================================
- */
 
 const gatewayWebSocket = require("./gatewayWebSocket");
 const servicoAposta = require("../services/servicoAposta");

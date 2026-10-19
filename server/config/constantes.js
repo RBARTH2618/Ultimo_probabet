@@ -1,21 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: config/constantes.js - Constantes do Sistema e Dicionário de Eventos
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o dicionário central de configurações e nomes de eventos do sistema.
- * 
- * ⚙️ O QUE ELE FAZ?
- * Evita o uso de "strings mágicas" soltas no código. Centraliza os tipos de mensagens
- * WebSocket exigidos pela especificação da atividade acadêmica da UniRV, além de
- * definir configurações do motor e da casa de apostas.
- * 
- * 📍 ONDE É USADO?
- * Importado pelo gateway WebSocket, roteador, serviços de aposta, cash out e motor.
- * ==============================================================================
- */
 
 /**
  * 📡 EVENTOS DO PROTOCOLO WEBSOCKET (Ws2)

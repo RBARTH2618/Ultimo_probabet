@@ -1,17 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: js/config/eventos.js - Dicionário de Eventos WebSocket no Frontend
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É a lista padronizada de eventos trocados entre o navegador e o servidor.
- * 
- * ⚙️ O QUE ELE FAZ?
- * Garante que tanto o frontend quanto o backend utilizem exatamente as mesmas
- * constantes de string para identificar mensagens como apostas, gols e cotações.
- * ==============================================================================
- */
 
 export const EVENTOS_WS = {
   // Handshake e Sessão Inicial [RF-01]

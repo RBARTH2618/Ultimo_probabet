@@ -1,27 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: servidor.js - Servidor Web HTTP e Ponto de Entrada Principal
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o ponto de entrada principal do backend. Quando você executa `npm start` ou
- * `node server/servidor.js`, é este arquivo que sobe o servidor.
- * 
- * ⚙️ O QUE ELE FAZ?
- *  1. Inicializa o framework Express para servir os arquivos HTML, CSS e JS do frontend.
- *  2. Inicializa o WebSocket Server na mesma porta TCP (3000) para permitir comunicação bidirecional.
- *  3. Instancia e inicia o Motor de Partidas (engine/motorPartida.js).
- *  4. Gerencia o ciclo de vida dos apostadores (conexão, handshake com R$ 100,00, mensagens e desconexão).
- * 
- * 📍 ARQUITETURA MODULAR (CLEAN LAYERED ARCHITECTURE):
- *  - /config     -> Constantes e dicionário de eventos (constantes.js)
- *  - /data       -> Banco de dados em memória (bancoDados.js) e seeds (dadosIniciais.js)
- *  - /services   -> Serviços: Usuário, Partida, Aposta, Cash Out e Liquidação
- *  - /engine     -> Cálculo de odds (calculadoraCotacoes.js) e motor (motorPartida.js)
- *  - /ws         -> Gateway WebSocket (gatewayWebSocket.js) e roteador (roteadorWebSocket.js)
- * ==============================================================================
- */
 
 const http = require("http");
 const path = require("path");

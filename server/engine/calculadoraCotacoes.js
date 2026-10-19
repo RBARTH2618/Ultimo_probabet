@@ -1,23 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: engine/calculadoraCotacoes.js - Cálculo Estocástico de Flutuação de Odds
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o modelo matemático de precificação de cotações (Odds) dinâmicas ao vivo.
- * 
- * ⚙️ O QUE ELE FAZ?
- *  - Implementa [RF-02]: A cada ciclo de 2.5 segundos, calcula pequenas variações estocásticas
- *    nas cotações de Casa, Empate e Fora.
- *  - Identifica se a cotação subiu ("UP") ou caiu ("DOWN") para alimentar as setas e animações
- *    verdes e vermelhas exigidas no frontend.
- *  - Recalcula bruscamente as probabilidades após a ocorrência de um gol (favorecendo quem marcou).
- * 
- * 📍 ONDE É USADO?
- * Chamado periodicamente pelo motor de partidas (motorPartida.js).
- * ==============================================================================
- */
 
 /**
  * [RF-02] Simula a oscilação natural do mercado esportivo com pequenas variações.

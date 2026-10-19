@@ -1,24 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: services/servicoCashout.js - Cálculo e Encerramento Antecipado (Cash Out)
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o serviço financeiro de encerramento antecipado de bilhetes ao vivo.
- * 
- * ⚙️ O QUE ELE FAZ?
- *  - Implementa [RF-04]: Algoritmo de recálculo contínuo do valor de resgate (Cash Out)
- *    conforme o placar, o minuto do jogo e a probabilidade instantânea do evento.
- *  - Implementa [RF-05]: Executa a liquidação imediata da aposta e credita o valor acordado.
- *  - Implementa [RNF-01]: Prevenção de Race Condition e Trava Atômica. Se um gol acabou
- *    de ocorrer e o mercado estiver suspenso, a tentativa de Cash Out é sumariamente
- *    rejeitada para impedir inconsistências e perdas da casa de apostas.
- * 
- * 📍 ONDE É USADO?
- * Pelo motor de partidas (no heartbeat de cálculo), no roteador WS e na Tela 3 (Carteira).
- * ==============================================================================
- */
 
 const bancoDados = require("../data/bancoDados");
 const servicoUsuario = require("./servicoUsuario");

@@ -1,20 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: js/principal.js - Ponto de Entrada do Cliente Frontend
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o maestro da aplicação no navegador. Orquestra a inicialização e expõe as funções
- * globais necessárias para os botões do HTML funcionarem.
- * 
- * ⚙️ O QUE ELE FAZ?
- *  1. Ao carregar o DOM (DOMContentLoaded), inicializa a sessão (localStorage),
- *     atualiza o cabeçalho e conecta o WebSocket com o backend.
- *  2. Registra no objeto `window` os manipuladores de cliques (onclick) em Português
- *     e também em Inglês para garantir 100% de compatibilidade com os templates HTML.
- * ==============================================================================
- */
 
 import { inicializarSessao } from "./state/sessao.js";
 import { conectarWebSocket } from "./net/clienteWebSocket.js";

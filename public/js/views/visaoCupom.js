@@ -1,25 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: js/views/visaoCupom.js - Detalhes da Partida e Cupom de Aposta (Tela 2)
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o módulo que gerencia a interface da Tela 2 (betslip.html - Detalhes & Bet Slip).
- * 
- * ⚙️ O QUE ELE FAZ?
- *  - Exibe estatísticas ao vivo da partida (Posse de bola, Chutes a gol e Escanteios).
- *  - Exibe o Live Ticker em tempo real com lances e cartões recebidos via WebSocket.
- *  - Renderiza o Cupom Lateral (Bet Slip) com o palpite selecionado.
- *  - Permite configurar o Valor da Aposta (Stake) manualmente ou por atalhos (+10, +20, +50, MAX).
- *  - Calcula o Retorno Potencial instantaneamente (Retorno = Valor × Odd) [RF-03].
- *  - Valida o saldo disponível [RNF-02], desabilitando o botão se a quantia for maior que a carteira.
- *  - Envia o frame PLACE_BET via WebSocket e exibe o modal do comprovante #Ticket ID.
- * 
- * 📍 ONDE É USADO?
- * Carregado em betslip.html ao abrir os detalhes de uma partida.
- * ==============================================================================
- */
 
 import { EstadoApp } from "../state/estadoAplicacao.js";
 import { salvarCupomSelecionado } from "../state/sessao.js";

@@ -1,23 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: js/views/visaoLobby.js - Renderização do Lobby de Apostas (Tela 1)
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o módulo que gerencia a interface da Tela 1 (index.html - Lobby de Apostas).
- * 
- * ⚙️ O QUE ELE FAZ?
- *  - Implementa [RF-02]: Renderiza os cards de partidas esportivas com cotações dinâmicas.
- *  - Atualiza as cotações suavemente em tempo real piscando em verde (subida) ou vermelho (queda).
- *  - Fornece filtro por modalidades (Futebol, Basquete ou Todos os Esportes).
- *  - Bloqueia visualmente o mercado com ícone de cadeado 🔒 quando ocorre um gol [RF-06, RNF-01].
- *  - Ao clicar em qualquer cotação, salva a seleção e redireciona o apostador para a Tela 2 (Bet Slip).
- * 
- * 📍 ONDE É USADO?
- * Carregado em index.html e atualizado a cada evento ODDS_UPDATE recebido via WebSocket.
- * ==============================================================================
- */
 
 import { EstadoApp } from "../state/estadoAplicacao.js";
 import { salvarCupomSelecionado } from "../state/sessao.js";

@@ -1,23 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: js/net/clienteWebSocket.js - Cliente de Rede WebSocket Full-Duplex
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o módulo que estabelece a conexão TCP persistente Full-Duplex com o servidor.
- * 
- * ⚙️ O QUE ELE FAZ?
- *  - Cria a conexão WebSocket com o backend (`ws://localhost:3000`).
- *  - Passa os parâmetros de identificação do apostador na URL de conexão.
- *  - Implementa reconexão automática com temporizador se a internet ou o servidor oscilarem.
- *  - Recebe os pacotes JSON em tempo real e os entrega ao manipulador de eventos.
- *  - Provê a função segura `enviarMensagemServidor` para despacho de apostas e cash out.
- * 
- * 📍 ONDE É USADO?
- * Inicializado pelo ponto de entrada (principal.js) no carregamento da página.
- * ==============================================================================
- */
 
 import { EstadoApp } from "../state/estadoAplicacao.js";
 import { atualizarStatusConexao, exibirAlertaGlobal, ocultarAlertaGlobal } from "../ui/interfaceCabecalho.js";

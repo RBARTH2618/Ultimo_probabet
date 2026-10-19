@@ -1,23 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: services/servicoPartida.js - Consulta e Ciclo de Vida das Partidas
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o serviço responsável por gerenciar as partidas de futebol e basquete ao vivo.
- * 
- * ⚙️ O QUE ELE FAZ?
- *  - Lista todas as partidas ativas no sistema [RF-02].
- *  - Busca uma partida pelo seu ID único.
- *  - Suspende temporariamente o mercado de apostas quando ocorre um gol ou lance crucial [RF-06, RNF-01].
- *  - Reabre o mercado após a normalização das cotações.
- *  - Reinicia o placar e cronômetro para efeitos de demonstração acadêmica.
- * 
- * 📍 ONDE É USADO?
- * Pelo motor de partidas (motorPartida.js), pelo roteador WS e na listagem do Lobby.
- * ==============================================================================
- */
 
 const bancoDados = require("../data/bancoDados");
 const { obterPartidasIniciais } = require("../data/dadosIniciais");

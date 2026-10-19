@@ -1,24 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: js/ui/interfaceCabecalho.js - Atualização Visual do Cabeçalho e Badges
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o módulo responsável por atualizar a barra de cabeçalho global, notificações
- * de status da rede WebSocket e banner de lances do jogo.
- * 
- * ⚙️ O QUE ELE FAZ?
- *  - Atualiza dinamicamente o saldo do apostador com efeito visual de pulso (CSS pulse).
- *  - Exibe o nome do apostador e o contador de apostas ativas na aba Carteira.
- *  - Altera a badge de status WebSocket entre verde ("Conectado (WS)") e vermelho ("Desconectado").
- *  - Mostra a barra de alerta de desconexão caso a conexão oscile.
- *  - Apresenta o banner animado de Gol / Cartão na parte superior da tela [RF-06].
- * 
- * 📍 ONDE É USADO?
- * Presente em todas as telas (index.html, betslip.html, wallet.html).
- * ==============================================================================
- */
 
 import { EstadoApp } from "../state/estadoAplicacao.js";
 

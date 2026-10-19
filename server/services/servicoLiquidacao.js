@@ -1,23 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: services/servicoLiquidacao.js - Liquidação Automática de Apostas ao Fim do Jogo
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o serviço financeiro que encerra a partida e apura quais apostadores ganharam ou perderam.
- * 
- * ⚙️ O QUE ELE FAZ?
- *  - Implementa [RF-07]: Ao término dos 90 minutos de jogo, avalia todos os bilhetes em aberto.
- *  - Determina o resultado final da partida (Vitória da CASA, EMPATE ou Vitória de FORA).
- *  - Marca os bilhetes corretos como GREEN, calcula o prêmio (Valor Apostado × Odd) e credita no saldo.
- *  - Marca os bilhetes incorretos como RED.
- *  - Altera o status da partida para ENCERRADA.
- * 
- * 📍 ONDE É USADO?
- * Disparado automaticamente pelo motor de partida (motorPartida.js) quando o cronômetro atinge 90 min.
- * ==============================================================================
- */
 
 const bancoDados = require("../data/bancoDados");
 const servicoUsuario = require("./servicoUsuario");

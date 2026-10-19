@@ -1,17 +1,3 @@
-/* ==============================================================================
-   PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
-   Arquivo: public/styles.css - Master Stylesheet Modular
-   Autores: João Lucas & Antigravity (Trabalho Acadêmico - UniRV)
-   Disciplina: Desenvolvimento de Software para Web | Prof. Me. Sergio Souza Novak
-   ==============================================================================
-   Folha de estilos 100% modularizada por responsabilidade única:
-    - css/variables.css  -> Tokens de cores, tipografia, resets e wrapper base
-    - css/header.css     -> Cabeçalho global, saldo, badges e abas de navegação
-    - css/lobby.css      -> Tela 1: Filtros de esporte (chips), cards e odds ao vivo
-    - css/betslip.css    -> Tela 2: Detalhes da partida, barras de stats e bet slip
-    - css/wallet.css     -> Tela 3: Saldo hero, lista de bilhetes e cash out
-    - css/components.css -> Banners de gol, alertas, ranking, modais e toolbar demo
-   ============================================================================== */
 
 @import url('./css/variables.css');
 @import url('./css/header.css');

@@ -1,23 +1,3 @@
-/**
- * ==============================================================================
- * PROBABET - Plataforma de Apostas Esportivas em Tempo Real (WebSocket)
- * Módulo: js/views/visaoCarteira.js - Renderização da Carteira e Cash Out (Tela 3)
- * ==============================================================================
- * 
- * 📖 O QUE É ESTE ARQUIVO?
- * É o módulo que gerencia a interface da Tela 3 (wallet.html - Carteira & Cash Out).
- * 
- * ⚙️ O QUE ELE FAZ?
- *  - Implementa [RF-04]: Exibe as apostas ativas com botão de Cash Out cujo valor
- *    de resgate oscila continuamente segundo as probabilidades do jogo.
- *  - Implementa [RF-05]: Ao clicar no botão "Realizar Cash Out", envia o frame via WS.
- *  - Alterna abas entre "Apostas em Andamento" e "Histórico de Encerradas".
- *  - Implementa [RF-08]: Renderiza a Tabela de Ranking da sessão com os maiores saldos.
- * 
- * 📍 ONDE É USADO?
- * Carregado em wallet.html e atualizado a cada pulso de Cash Out ou liquidação.
- * ==============================================================================
- */
 
 import { EstadoApp } from "../state/estadoAplicacao.js";
 import { EVENTOS_WS } from "../config/eventos.js";
