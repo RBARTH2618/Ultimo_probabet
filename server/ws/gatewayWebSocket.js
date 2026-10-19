@@ -4,17 +4,17 @@
  * Módulo: ws/gatewayWebSocket.js - Gateway de Comunicação WebSocket
  * ==============================================================================
  * 
- * 📖 O QUE É ESTE ARQUIVO?
+ * O QUE É ESTE ARQUIVO?
  * É o ponto de contato do servidor com a rede WebSocket. Gerencia sockets abertos.
  * 
- * ⚙️ O QUE ELE FAZ?
+ * O QUE ELE FAZ?
  *  - Cria o servidor WebSocket sobre o mesmo servidor HTTP do Express.
  *  - Registra a associação entre cada socket TCP aberto e a identidade do apostador.
  *  - Executa BROADCAST: Envia uma mesma mensagem (ex: cotações, ranking, gols) para TODOS os clientes conectados.
  *  - Executa UNICAST: Envia uma mensagem confidencial (ex: bilhete confirmado, prêmio ganho) para UM único apostador.
  *  - Remove clientes desconectados para evitar vazamentos de memória.
  * 
- * 📍 ONDE É USADO?
+ * ONDE É USADO?
  * Pelo servidor HTTP (servidor.js), pelo motor de partidas e pelo roteador WS.
  * ==============================================================================
  */
