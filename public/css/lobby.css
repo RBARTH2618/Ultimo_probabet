@@ -241,3 +241,42 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
   z-index: 5;
 }
+
+/* [RF-07] Estilos para Partidas Finalizadas (ENCERRADA) */
+.match-card.finished {
+  opacity: 0.85;
+  border-color: #374151;
+}
+
+.match-card.finished .odds-market-group {
+  position: relative;
+}
+
+.match-card.finished .odd-button {
+  background: #0a0d14 !important;
+  border-color: #1e2638 !important;
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.suspended-overlay-tag.finished-tag {
+  border-color: #6b7280;
+  color: #e5e7eb;
+  background: rgba(15, 23, 42, 0.96);
+}
+
+.live-indicator.finished-indicator {
+  color: #9ca3af;
+}
+
+.badge-finished {
+  background: #374151;
+  color: #f3f4f6;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  letter-spacing: 0.5px;
+}

@@ -48,7 +48,8 @@ export const EVENTOS_WS = {
 
   // Ações da Barra Didática de Demonstração
   DEMO_TRIGGER_GOAL: "DEMO_TRIGGER_GOAL",
-  DEMO_RESET_MATCH: "DEMO_RESET_MATCH"
+  DEMO_RESET_MATCH: "DEMO_RESET_MATCH",
+  DEMO_FINISH_MATCHES: "DEMO_FINISH_MATCHES"
 };
 
 // Alias de compatibilidade retroativa

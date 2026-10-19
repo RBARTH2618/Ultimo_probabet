@@ -28,9 +28,9 @@ function obterPartidasIniciais() {
       campeonato: "Brasileirão Série A",
       time_casa: "União FC",
       time_fora: "Rio FC",
-      placar_casa: 1,
+      placar_casa: 0,
       placar_fora: 0,
-      minuto_jogo: 67,
+      minuto_jogo: 10,
       status_partida: "AO_VIVO",
       lock_motivo: null,
       lock_timestamp: 0,
@@ -43,8 +43,7 @@ function obterPartidasIniciais() {
         escanteiosFora: 1
       },
       timeline: [
-        { minuto: 62, tipo: "CARD_YELLOW", texto: "Cartão Amarelo para camisa 5 do Rio FC" },
-        { minuto: 67, tipo: "GOAL", texto: "Gol do União FC! (Carlos Silva)" }
+        { minuto: 5, tipo: "INFO", texto: "Início de jogo dinâmico no Estádio Olímpico" }
       ],
       odds: {
         "VENCEDOR_1X2": {

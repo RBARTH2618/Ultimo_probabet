@@ -243,6 +243,10 @@ class MotorPartida {
    * [RF-07] Finaliza a partida aos 90 minutos e liquida os bilhetes em aberto.
    */
   finalizarPartida(partida) {
+    partida.minuto_jogo = 90;
+    partida.lock_motivo = null;
+    partida.lock_timestamp = 0;
+
     console.log(`🏁 [FIM DE JOGO] Partida #${partida.id_partida} encerrada aos 90 min. Liquidando apostas...`);
     const liquidacoes = servicoLiquidacao.liquidarApostasDaPartida(partida.id_partida);
 
@@ -255,6 +259,7 @@ class MotorPartida {
         fora: partida.placar_fora
       },
       vencedor: partida.placar_casa > partida.placar_fora ? "CASA" : partida.placar_fora > partida.placar_casa ? "FORA" : "EMPATE",
+      matches: servicoPartida.obterTodasPartidas(),
       timestamp: new Date().toISOString()
     });
 
@@ -278,6 +283,25 @@ class MotorPartida {
   }
 
   /**
+   * [RF-07] Finaliza todas as partidas em andamento aos 90 minutos.
+   * Liquida os bilhetes em aberto (GREEN / RED) e atualiza os saldos e o ranking da turma.
+   */
+  finalizarTodasPartidas() {
+    const partidas = servicoPartida.obterTodasPartidas();
+    let contadorFinalizadas = 0;
+
+    for (const partida of partidas) {
+      if (partida.status_partida !== STATUS_PARTIDA.ENCERRADA) {
+        partida.minuto_jogo = 90;
+        this.finalizarPartida(partida);
+        contadorFinalizadas++;
+      }
+    }
+
+    console.log(`🏁 [DEMO ACADÊMICA] ${contadorFinalizadas} partida(s) em andamento foram finalizadas aos 90 min.`);
+  }
+
+  /**
    * [RF-04] Emite pulso contínuo para os navegadores recalcularem as propostas de Cash Out.
    */
   transmitirAtualizacoesCashOut() {
@@ -289,32 +313,16 @@ class MotorPartida {
 
   /**
    * Comando de demonstração didática para reiniciar as partidas.
-   * Se idPartida for "TODAS" ou omitido, reinicia todas as partidas (União FC, Flamengo e Lakers).
+   * Reinicia todas as partidas (União FC, Flamengo e Lakers) para status AO_VIVO no minuto 10.
    */
   reiniciarPartida(idPartida = "TODAS") {
-    if (!idPartida || idPartida === "TODAS") {
-      const partidas = servicoPartida.reiniciarTodasPartidas();
-      console.log(`🔄 [DEMO] Todas as partidas foram reiniciadas com sucesso.`);
-
-      this.broadcast({
-        event: EVENTOS_WS.MATCH_RESET,
-        matchId: "TODAS",
-        matches: partidas,
-        timestamp: new Date().toISOString()
-      });
-      return;
-    }
-
-    const partida = servicoPartida.reiniciarPartida(idPartida);
-    if (!partida) return;
-
-    console.log(`🔄 [DEMO] Partida #${idPartida} reiniciada com sucesso para apresentação.`);
+    const partidas = servicoPartida.reiniciarTodasPartidas();
+    console.log(`🔄 [DEMO] Todas as partidas foram reiniciadas com sucesso.`);
 
     this.broadcast({
       event: EVENTOS_WS.MATCH_RESET,
-      matchId: partida.id_partida,
-      match: partida,
-      matches: servicoPartida.obterTodasPartidas(),
+      matchId: "TODAS",
+      matches: partidas,
       timestamp: new Date().toISOString()
     });
   }
@@ -331,6 +339,7 @@ class MotorPartida {
   reopenMarketAfterGoal(id) { this.reabrirMercadoAposGol(id); }
   triggerCard(id) { this.dispararCartao(id); }
   finishMatch(m) { this.finalizarPartida(m); }
+  finishAllMatches() { this.finalizarTodasPartidas(); }
   broadcastCashOutUpdates() { this.transmitirAtualizacoesCashOut(); }
   resetMatch(id) { this.reiniciarPartida(id); }
   notifyUser(userId, payload) { this.notificarUsuario(userId, payload); }

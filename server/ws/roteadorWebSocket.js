@@ -210,8 +210,17 @@ function processarMensagemCliente(ws, mensagem, motor) {
     // DEMO DIDÁTICA: REINICIAR PARTIDAS DE DEMONSTRAÇÃO
     // ==========================================================================
     case EVENTOS_WS.DEMO_RESET_MATCH: {
-      const matchId = mensagem.matchId || "TODAS";
-      motor.reiniciarPartida(matchId);
+      console.log(`🔄 [DEMO ACADÊMICA] Reiniciando todas as partidas de demonstração...`);
+      motor.reiniciarPartida("TODAS");
+      break;
+    }
+
+    // ==========================================================================
+    // DEMO DIDÁTICA: FINALIZAR TODAS AS PARTIDAS (RF-07 LIQUIDAÇÃO AOS 90 MIN)
+    // ==========================================================================
+    case EVENTOS_WS.DEMO_FINISH_MATCHES: {
+      console.log(`🏁 [DEMO ACADÊMICA] Finalizando todas as partidas aos 90 min (RF-07)...`);
+      motor.finalizarTodasPartidas();
       break;
     }
 

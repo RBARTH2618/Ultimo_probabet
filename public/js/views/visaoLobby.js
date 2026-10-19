@@ -42,13 +42,32 @@ export function renderizarPaginaLobby() {
   container.innerHTML = partidas.map(p => {
     const cotacoes = p.odds["VENCEDOR_1X2"] || { CASA: 1.80, EMPATE: 3.10, FORA: 4.50 };
     const estaSuspenso = (p.status_partida === "SUSPENSA");
+    const estaEncerrada = (p.status_partida === "ENCERRADA");
+    const desabilitarBotoes = estaSuspenso || estaEncerrada;
+
+    let indicadorAoVivoHtml = `
+      <span class="live-pulse-dot"></span>
+      <span>AO VIVO <span class="match-minute">${p.minuto_jogo}'</span></span>
+    `;
+    if (estaEncerrada) {
+      indicadorAoVivoHtml = `
+        <span class="badge-finished">🏁 ENCERRADA</span>
+        <span class="match-minute" style="color: var(--text-dim); margin-left: 4px;">(90')</span>
+      `;
+    }
+
+    let overlayTagHtml = '';
+    if (estaSuspenso) {
+      overlayTagHtml = `<div class="suspended-overlay-tag">🔒 Mercado Temporariamente Suspenso</div>`;
+    } else if (estaEncerrada) {
+      overlayTagHtml = `<div class="suspended-overlay-tag finished-tag">🏁 Fim de Jogo (Apostas Liquidadas)</div>`;
+    }
 
     return `
-      <div class="match-card ${estaSuspenso ? 'suspended' : ''}" data-match-id="${p.id_partida}">
+      <div class="match-card ${estaSuspenso ? 'suspended' : ''} ${estaEncerrada ? 'finished' : ''}" data-match-id="${p.id_partida}">
         <div class="match-header-line">
-          <div class="live-indicator">
-            <span class="live-pulse-dot"></span>
-            <span>AO VIVO <span class="match-minute">${p.minuto_jogo}'</span></span>
+          <div class="live-indicator ${estaEncerrada ? 'finished-indicator' : ''}">
+            ${indicadorAoVivoHtml}
             <span style="color: var(--text-dim); margin-left: 6px;">| ${p.modalidade_esportiva} - ${p.campeonato || ''}</span>
           </div>
           <div class="match-league">ID Partida: #${p.id_partida}</div>
@@ -64,19 +83,19 @@ export function renderizarPaginaLobby() {
           </div>
 
           <div class="odds-market-group">
-            ${estaSuspenso ? `<div class="suspended-overlay-tag">🔒 Mercado Temporariamente Suspenso</div>` : ''}
+            ${overlayTagHtml}
             
-            <button class="odd-button" data-odd-type="CASA" onclick="window.selecionarCotacao(${p.id_partida}, 'CASA', ${cotacoes.CASA}, '${p.time_casa} vs ${p.time_fora}', '${p.time_casa}')" ${estaSuspenso ? 'disabled' : ''}>
+            <button class="odd-button" data-odd-type="CASA" onclick="window.selecionarCotacao(${p.id_partida}, 'CASA', ${cotacoes.CASA}, '${p.time_casa} vs ${p.time_fora}', '${p.time_casa}')" ${desabilitarBotoes ? 'disabled' : ''}>
               <span class="odd-label">Casa (1)</span>
               <span class="odd-val">${cotacoes.CASA.toFixed(2)}</span>
             </button>
 
-            <button class="odd-button" data-odd-type="EMPATE" onclick="window.selecionarCotacao(${p.id_partida}, 'EMPATE', ${cotacoes.EMPATE}, '${p.time_casa} vs ${p.time_fora}', 'Empate')" ${estaSuspenso ? 'disabled' : ''}>
+            <button class="odd-button" data-odd-type="EMPATE" onclick="window.selecionarCotacao(${p.id_partida}, 'EMPATE', ${cotacoes.EMPATE}, '${p.time_casa} vs ${p.time_fora}', 'Empate')" ${desabilitarBotoes ? 'disabled' : ''}>
               <span class="odd-label">Empate (X)</span>
               <span class="odd-val">${cotacoes.EMPATE.toFixed(2)}</span>
             </button>
 
-            <button class="odd-button" data-odd-type="FORA" onclick="window.selecionarCotacao(${p.id_partida}, 'FORA', ${cotacoes.FORA}, '${p.time_casa} vs ${p.time_fora}', '${p.time_fora}')" ${estaSuspenso ? 'disabled' : ''}>
+            <button class="odd-button" data-odd-type="FORA" onclick="window.selecionarCotacao(${p.id_partida}, 'FORA', ${cotacoes.FORA}, '${p.time_casa} vs ${p.time_fora}', '${p.time_fora}')" ${desabilitarBotoes ? 'disabled' : ''}>
               <span class="odd-label">Fora (2)</span>
               <span class="odd-val">${cotacoes.FORA.toFixed(2)}</span>
             </button>

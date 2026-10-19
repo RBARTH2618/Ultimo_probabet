@@ -47,13 +47,23 @@ export function demonstracaoResetarSaldo() {
 }
 
 /**
- * Reinicia as partidas de demonstração (todas as partidas voltam a ficar AO VIVO).
+ * Reinicia as partidas de demonstração (todas as partidas voltam a ficar AO VIVO no minuto 10).
  */
 export function demonstracaoReiniciarJogo(idPartida = "TODAS") {
   if (!EstadoApp.ws) return;
   EstadoApp.ws.send(JSON.stringify({
     type: EVENTOS_WS.DEMO_RESET_MATCH,
     matchId: idPartida
+  }));
+}
+
+/**
+ * Finaliza todas as partidas em andamento aos 90 minutos para testar a liquidação [RF-07].
+ */
+export function demonstracaoFinalizarJogos() {
+  if (!EstadoApp.ws) return;
+  EstadoApp.ws.send(JSON.stringify({
+    type: EVENTOS_WS.DEMO_FINISH_MATCHES
   }));
 }
 
@@ -87,4 +97,5 @@ export function demonstracaoAlterarNome() {
 export const demoTriggerGoal = demonstracaoForcarGol;
 export const demoResetBalance = demonstracaoResetarSaldo;
 export const demoResetMatch = demonstracaoReiniciarJogo;
+export const demoFinishMatches = demonstracaoFinalizarJogos;
 export const demoChangeUserName = demonstracaoAlterarNome;

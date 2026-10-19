@@ -202,7 +202,17 @@ export function processarEventoServidor(msg) {
 
     case EVENTOS_WS.MATCH_FINISHED: {
       const partida = EstadoApp.partidas.get(msg.matchId);
-      if (partida) partida.status_partida = "ENCERRADA";
+      if (partida) {
+        partida.status_partida = "ENCERRADA";
+        partida.minuto_jogo = 90;
+        if (msg.placarFinal) {
+          partida.placar_casa = msg.placarFinal.casa;
+          partida.placar_fora = msg.placarFinal.fora;
+        }
+      }
+      if (Array.isArray(msg.matches)) {
+        msg.matches.forEach(m => EstadoApp.partidas.set(m.id_partida, m));
+      }
       renderizarConteudoPaginaAtual();
       break;
     }

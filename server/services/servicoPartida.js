@@ -62,52 +62,58 @@ function retomarMercadoPartida(idPartida) {
 
 /**
  * Reinicia todas as partidas restaurando o estado original ao vivo (União FC, Flamengo e Lakers).
+ * Define status AO_VIVO, minuto 10, remove travas e restabelece as cotações para nova demonstração.
  */
 function reiniciarTodasPartidas() {
   const partidasPadrao = obterPartidasIniciais();
   partidasPadrao.forEach(p => {
+    p.status_partida = STATUS_PARTIDA.AO_VIVO;
+    p.lock_motivo = null;
+    p.lock_timestamp = 0;
+
+    if (p.modalidade_esportiva === "BASQUETE") {
+      p.minuto_jogo = 10;
+      p.placar_casa = 24;
+      p.placar_fora = 22;
+      p.timeline = [
+        { minuto: 1, tipo: "INFO", texto: "Partida de basquete iniciada/reiniciada para demonstração ao vivo." }
+      ];
+      if (p.odds && p.odds["VENCEDOR_1X2"]) {
+        p.odds["VENCEDOR_1X2"].CASA = 1.70;
+        p.odds["VENCEDOR_1X2"].EMPATE = 15.00;
+        p.odds["VENCEDOR_1X2"].FORA = 2.15;
+      }
+    } else {
+      p.minuto_jogo = 10;
+      p.placar_casa = 0;
+      p.placar_fora = 0;
+      p.timeline = [
+        { minuto: 1, tipo: "INFO", texto: "Partida de futebol iniciada/reiniciada para demonstração ao vivo." }
+      ];
+      if (p.odds && p.odds["VENCEDOR_1X2"]) {
+        if (p.id_partida === 16) {
+          p.odds["VENCEDOR_1X2"].CASA = 1.45;
+          p.odds["VENCEDOR_1X2"].EMPATE = 4.00;
+          p.odds["VENCEDOR_1X2"].FORA = 6.50;
+        } else {
+          p.odds["VENCEDOR_1X2"].CASA = 1.80;
+          p.odds["VENCEDOR_1X2"].EMPATE = 3.10;
+          p.odds["VENCEDOR_1X2"].FORA = 4.50;
+        }
+      }
+    }
+
     bancoDados.partidas.set(p.id_partida, p);
   });
   return Array.from(bancoDados.partidas.values());
 }
 
 /**
- * Reinicia uma partida específica ou todas as partidas caso idPartida seja "TODAS" ou omitido.
+ * Reinicia uma partida específica ou todas as partidas.
+ * Para garantir sincronização na barra didática, reinicia todas as partidas por padrão.
  */
 function reiniciarPartida(idPartida) {
-  if (!idPartida || idPartida === "TODAS") {
-    return reiniciarTodasPartidas();
-  }
-
-  const idNum = Number(idPartida);
-  const partidasIniciais = obterPartidasIniciais();
-  const partidaPadrao = partidasIniciais.find(p => p.id_partida === idNum);
-
-  if (partidaPadrao) {
-    bancoDados.partidas.set(idNum, partidaPadrao);
-    return partidaPadrao;
-  }
-
-  const partida = obterPartidaPorId(idNum);
-  if (!partida) return null;
-
-  partida.placar_casa = 0;
-  partida.placar_fora = 0;
-  partida.minuto_jogo = 10;
-  partida.status_partida = STATUS_PARTIDA.AO_VIVO;
-  partida.lock_motivo = null;
-  partida.lock_timestamp = 0;
-  partida.timeline = [
-    { minuto: 1, tipo: "INFO", texto: "Partida reiniciada para demonstração ao vivo." }
-  ];
-
-  if (partida.odds["VENCEDOR_1X2"]) {
-    partida.odds["VENCEDOR_1X2"].CASA = 1.90;
-    partida.odds["VENCEDOR_1X2"].EMPATE = 3.20;
-    partida.odds["VENCEDOR_1X2"].FORA = 4.20;
-  }
-
-  return partida;
+  return reiniciarTodasPartidas();
 }
 
 module.exports = {

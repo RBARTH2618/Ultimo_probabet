@@ -58,6 +58,7 @@ const EVENTOS_WS = {
   // --- Ações Didáticas de Apresentação ---
   DEMO_TRIGGER_GOAL: "DEMO_TRIGGER_GOAL", // Botão da barra para forçar um gol instantâneo
   DEMO_RESET_MATCH: "DEMO_RESET_MATCH",   // Botão para reiniciar o cronômetro e placar
+  DEMO_FINISH_MATCHES: "DEMO_FINISH_MATCHES", // Botão para finalizar todas as partidas aos 90 min (RF-07)
   
   // --- Erros ---
   ERROR: "ERROR"                          // Notificação de erro genérico

@@ -32,6 +32,7 @@ import {
   demonstracaoForcarGol, 
   demonstracaoResetarSaldo, 
   demonstracaoReiniciarJogo, 
+  demonstracaoFinalizarJogos,
   demonstracaoAlterarNome 
 } from "./ui/barraDemonstracao.js";
 
@@ -52,6 +53,7 @@ window.trocarAbaCarteira = trocarAbaCarteira;
 window.demonstracaoForcarGol = demonstracaoForcarGol;
 window.demonstracaoResetarSaldo = demonstracaoResetarSaldo;
 window.demonstracaoReiniciarJogo = demonstracaoReiniciarJogo;
+window.demonstracaoFinalizarJogos = demonstracaoFinalizarJogos;
 window.demonstracaoAlterarNome = demonstracaoAlterarNome;
 
 // Aliases em Inglês para compatibilidade com os botões existentes dos templates HTML
@@ -67,6 +69,7 @@ window.switchWalletTab = trocarAbaCarteira;
 window.demoTriggerGoal = demonstracaoForcarGol;
 window.demoResetBalance = demonstracaoResetarSaldo;
 window.demoResetMatch = demonstracaoReiniciarJogo;
+window.demoFinishMatches = demonstracaoFinalizarJogos;
 window.demoChangeUserName = demonstracaoAlterarNome;
 
 // ==============================================================================
