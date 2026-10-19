@@ -30,12 +30,12 @@
             <span class="user-name" id="header-username">Carregando...</span>
             <span class="wallet-balance" id="header-balance">R$ 100,00</span>
           </div>
-          <button class="btn-header btn-reset" onclick="demoResetBalance()" title="Redefinir Saldo para R$ 100,00">
+          <button class="btn-header btn-reset" onclick="demonstracaoResetarSaldo()" title="Redefinir Saldo para R$ 100,00">
             🔄 Reset
           </button>
         </div>
 
-        <button class="btn-header" onclick="demoChangeUserName()" title="Alterar Nome do Apostador">
+        <button class="btn-header" onclick="demonstracaoAlterarNome()" title="Alterar Nome do Apostador">
           👤 Perfil
         </button>
       </div>
@@ -112,10 +112,10 @@
 
       <!-- Abas de Filtro de Apostas -->
       <div class="wallet-tabs-bar" role="tablist">
-        <button class="wallet-tab-btn active" data-tab="ativas" onclick="switchWalletTab('ativas', this)" role="tab">
+        <button class="wallet-tab-btn active" data-tab="ativas" onclick="trocarAbaCarteira('ativas', this)" role="tab">
           🟢 Apostas Ao Vivo (Com Cash Out)
         </button>
-        <button class="wallet-tab-btn" data-tab="encerradas" onclick="switchWalletTab('encerradas', this)" role="tab">
+        <button class="wallet-tab-btn" data-tab="encerradas" onclick="trocarAbaCarteira('encerradas', this)" role="tab">
           📁 Histórico Recente (GREEN / RED / CASH OUT)
         </button>
       </div>
@@ -153,21 +153,21 @@
        ============================================================================== -->
   <aside class="demo-control-bar" aria-label="Controles Didáticos de Demonstração">
     <span class="demo-tag">Modo Didático</span>
-    <button class="btn-demo demo-goal" onclick="demoTriggerGoal()" title="Dispara Gol ao mesmo tempo que clica em Cash Out para demonstrar a rejeição de Race Condition (RNF-01)">
+    <button class="btn-demo demo-goal" onclick="demonstracaoForcarGol()" title="Dispara Gol ao mesmo tempo que clica em Cash Out para demonstrar a rejeição de Race Condition (RNF-01)">
       ⚽ Forçar Gol (RF-06 / RNF-01)
     </button>
-    <button class="btn-demo" onclick="demoResetMatch()" title="Reinicia o placar e tempo de todas as partidas para AO VIVO (10')">
+    <button class="btn-demo" onclick="demonstracaoReiniciarJogo()" title="Reinicia o placar e tempo de todas as partidas para AO VIVO (0')">
       🔄 Reiniciar Jogos
     </button>
-    <button class="btn-demo demo-finish" onclick="demoFinishMatches()" title="Finaliza todas as partidas aos 90 min e liquida as apostas (RF-07)">
+    <button class="btn-demo demo-finish" onclick="demonstracaoFinalizarJogos()" title="Finaliza todas as partidas no tempo regulamentar e liquida as apostas (RF-07)">
       🏁 Finalizar Jogos (RF-07)
     </button>
-    <button class="btn-demo" onclick="demoResetBalance()" title="Restaura saldo para R$ 100,00">
+    <button class="btn-demo" onclick="demonstracaoResetarSaldo()" title="Restaura saldo para R$ 100,00">
       💰 Resetar Saldo
     </button>
   </aside>
 
   <!-- Script Modular do Cliente Frontend (ES6 Modules) -->
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/principal.js"></script>
 </body>
 </html>

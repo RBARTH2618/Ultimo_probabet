@@ -103,8 +103,5 @@ function recalcularCotacoesAposGol(partida) {
 
 module.exports = {
   flutuarCotacoesDaPartida,
-  recalcularCotacoesAposGol,
-  // Aliases de compatibilidade retroativa
-  fluctuateMatchOdds: flutuarCotacoesDaPartida,
-  recalculateOddsAfterGoal: recalcularCotacoesAposGol
+  recalcularCotacoesAposGol
 };

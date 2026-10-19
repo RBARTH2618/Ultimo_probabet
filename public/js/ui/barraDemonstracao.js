@@ -92,10 +92,3 @@ export function demonstracaoAlterarNome() {
     }
   }
 }
-
-// Aliases para compatibilidade retroativa
-export const demoTriggerGoal = demonstracaoForcarGol;
-export const demoResetBalance = demonstracaoResetarSaldo;
-export const demoResetMatch = demonstracaoReiniciarJogo;
-export const demoFinishMatches = demonstracaoFinalizarJogos;
-export const demoChangeUserName = demonstracaoAlterarNome;

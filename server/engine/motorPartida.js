@@ -438,23 +438,6 @@ class MotorPartida {
       timestamp: new Date().toISOString()
     });
   }
-
-  // ============================================================================
-  // ALIASES DE COMPATIBILIDADE COM NOMES EM INGLÊS
-  // ============================================================================
-  start() { this.iniciarLoop(); }
-  stop() { this.pararLoop(); }
-  tick() { this.cicloTemporal(); }
-  processOddsFluctuation(m) { this.processarFlutuacaoCotacoes(m); }
-  triggerRandomEvent(m) { this.dispararEventoAleatorio(m); }
-  triggerGoal(id, time, autor) { this.dispararGol(id, time, autor); }
-  reopenMarketAfterGoal(id) { this.reabrirMercadoAposGol(id); }
-  triggerCard(id) { this.dispararCartao(id); }
-  finishMatch(m) { this.finalizarPartida(m); }
-  finishAllMatches() { this.finalizarTodasPartidas(); }
-  broadcastCashOutUpdates() { this.transmitirAtualizacoesCashOut(); }
-  resetMatch(id) { this.reiniciarPartida(id); }
-  notifyUser(userId, payload) { this.notificarUsuario(userId, payload); }
 }
 
 module.exports = MotorPartida;

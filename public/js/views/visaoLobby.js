@@ -196,10 +196,3 @@ export function bloquearCotacoesPartida(idPartida, estaBloqueado) {
     card.classList.remove("suspended");
   }
 }
-
-// Aliases para compatibilidade retroativa
-export const renderLobbyPage = renderizarPaginaLobby;
-export const selectOdd = selecionarCotacao;
-export const filterSport = filtrarPorEsporte;
-export const applyOddsUpdateUI = aplicarAtualizacaoCotacoesNaInterface;
-export const lockMatchOdds = bloquearCotacoesPartida;

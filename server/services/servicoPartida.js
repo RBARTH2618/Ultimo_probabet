@@ -130,12 +130,5 @@ module.exports = {
   suspenderMercadoPartida,
   retomarMercadoPartida,
   reiniciarPartida,
-  reiniciarTodasPartidas,
-  // Aliases para compatibilidade retroativa
-  getAllMatches: obterTodasPartidas,
-  getMatch: obterPartidaPorId,
-  suspendMatch: suspenderMercadoPartida,
-  resumeMatch: retomarMercadoPartida,
-  resetMatch: reiniciarPartida,
-  resetAllMatches: reiniciarTodasPartidas
+  reiniciarTodasPartidas
 };

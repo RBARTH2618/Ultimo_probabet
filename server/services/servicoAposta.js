@@ -167,8 +167,5 @@ function obterBilhetePorId(idBilhete) {
 
 module.exports = {
   efetuarAposta,
-  obterBilhetePorId,
-  // Aliases para compatibilidade retroativa
-  placeBet: efetuarAposta,
-  getBetById: obterBilhetePorId
+  obterBilhetePorId
 };

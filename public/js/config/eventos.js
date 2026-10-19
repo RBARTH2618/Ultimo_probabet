@@ -51,6 +51,3 @@ export const EVENTOS_WS = {
   DEMO_RESET_MATCH: "DEMO_RESET_MATCH",
   DEMO_FINISH_MATCHES: "DEMO_FINISH_MATCHES"
 };
-
-// Alias de compatibilidade retroativa
-export const WS_EVENTS = EVENTOS_WS;

@@ -86,6 +86,3 @@ export function enviarMensagemServidor(payload) {
   return true;
 }
 
-// Aliases para compatibilidade retroativa
-export const connectWebSocket = conectarWebSocket;
-export const sendPayload = enviarMensagemServidor;

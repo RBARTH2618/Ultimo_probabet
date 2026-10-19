@@ -121,22 +121,6 @@ class BancoDadosEmMemoria {
   obterTransacoesCashout() {
     return this.transacoesCashout;
   }
-
-  // ============================================================================
-  // MÉTODOS DE COMPATIBILIDADE COM O CÓDIGO ANTERIOR EM INGLÊS
-  // ============================================================================
-  getUser(userId) { return this.obterApostador(userId); }
-  setUser(userId, user) { this.salvarApostador(userId, user); }
-  getAllUsers() { return this.obterTodosApostadores(); }
-  getMatch(matchId) { return this.obterPartida(matchId); }
-  getAllMatches() { return this.obterTodasPartidas(); }
-  getBet(betId) { return this.obterBilhete(betId); }
-  saveBet(bet) { this.salvarBilhete(bet); }
-  getAllBets() { return this.obterTodosBilhetes(); }
-  generateBetId() { return this.gerarIdBilhete(); }
-  addCashoutTransaction(tx) { this.adicionarTransacaoCashout(tx); }
-  generateCashoutId() { return this.gerarIdCashout(); }
-  getCashoutTransactions() { return this.obterTransacoesCashout(); }
 }
 
 // Instância singleton compartilhada por toda a aplicação

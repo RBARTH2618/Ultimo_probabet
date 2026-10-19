@@ -2,10 +2,10 @@
   "name": "probabet",
   "version": "1.0.0",
   "description": "PROBABET - Plataforma de Apostas Esportivas em Tempo Real com WebSocket (UniRV)",
-  "main": "server/server.js",
+  "main": "server/servidor.js",
   "scripts": {
-    "start": "node server/server.js",
-    "dev": "node server/server.js"
+    "start": "node server/servidor.js",
+    "dev": "node server/servidor.js"
   },
   "keywords": [
     "websocket",

@@ -291,14 +291,3 @@ export function fecharModalEIrParaCarteira() {
   if (modal) modal.classList.remove("open");
   window.location.href = "wallet.html";
 }
-
-// Aliases para compatibilidade retroativa
-export const renderBetSlipPage = renderizarPaginaCupom;
-export const renderBetSlipSidebar = renderizarBarraLateralCupom;
-export const removeSlipSelection = removerSelecaoCupom;
-export const setQuickStake = definirValorRapido;
-export const calculatePayout = calcularRetornoPotencial;
-export const showOddChangeInSlip = exibirAlteracaoCotacaoNoCupom;
-export const submitBet = enviarAposta;
-export const showBetConfirmationModal = exibirModalConfirmacaoAposta;
-export const closeModalAndGoToWallet = fecharModalEIrParaCarteira;

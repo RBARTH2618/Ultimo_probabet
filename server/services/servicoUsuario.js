@@ -115,13 +115,5 @@ module.exports = {
   debitarSaldoApostador,
   creditarSaldoApostador,
   redefinirSaldoApostador,
-  obterClassificacaoRanking,
-  // Aliases para compatibilidade retroativa
-  createOrGetUser: obterOuCriarApostador,
-  getUser: obterApostador,
-  updateUserName: atualizarNomeApostador,
-  debitUser: debitarSaldoApostador,
-  creditUser: creditarSaldoApostador,
-  resetUserBalance: redefinirSaldoApostador,
-  getRanking: obterClassificacaoRanking
+  obterClassificacaoRanking
 };

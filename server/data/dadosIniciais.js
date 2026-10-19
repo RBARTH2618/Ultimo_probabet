@@ -159,8 +159,5 @@ function obterApostadoresIniciaisRanking() {
 
 module.exports = {
   obterPartidasIniciais,
-  obterApostadoresIniciaisRanking,
-  // Aliases para compatibilidade
-  getInitialMatches: obterPartidasIniciais,
-  getInitialRankingUsers: obterApostadoresIniciaisRanking
+  obterApostadoresIniciaisRanking
 };

@@ -210,9 +210,5 @@ function obterBilhetesDoApostador(idApostador) {
 module.exports = {
   calcularValorCashOut,
   executarCashOut,
-  obterBilhetesDoApostador,
-  // Aliases para compatibilidade retroativa
-  calculateCashOutValue: calcularValorCashOut,
-  executeCashOut: executarCashOut,
-  getUserBets: obterBilhetesDoApostador
+  obterBilhetesDoApostador
 };

@@ -82,10 +82,7 @@ Todo o código foi renomeado e organizado em camadas de **Responsabilidade Únic
   │     ├── /ws
   │     │    ├── gatewayWebSocket.js    (Servidor WebSocket, registro de conexões, broadcast e unicast)
   │     │    └── roteadorWebSocket.js   (Roteamento de mensagens do cliente para os serviços de domínio)
-  │     ├── servidor.js                 (Ponto de entrada: servidor HTTP Express e Gateway WebSocket)
-  │     ├── server.js                   (Ponte de compatibilidade executando servidor.js)
-  │     ├── engine.js                   (Ponte de compatibilidade reexportando motorPartida.js)
-  │     └── state.js                    (Ponte de compatibilidade reexportando os serviços em português)
+  │     └── servidor.js                 (Ponto de entrada: servidor HTTP Express e Gateway WebSocket)
   │
   ├── package.json                      (Dependências mínimas: express e ws)
   ├── atividade.pdf                     (Enunciado oficial da atividade prática - UniRV)

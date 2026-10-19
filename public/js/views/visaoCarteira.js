@@ -147,9 +147,3 @@ export function renderizarTabelaRanking(listaRanking) {
     `;
   }).join("");
 }
-
-// Aliases para compatibilidade retroativa
-export const renderWalletPage = renderizarPaginaCarteira;
-export const requestCashOut = solicitarCashOut;
-export const switchWalletTab = trocarAbaCarteira;
-export const renderRankingTable = renderizarTabelaRanking;

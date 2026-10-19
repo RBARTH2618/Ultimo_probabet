@@ -95,17 +95,6 @@ class GatewayWebSocket {
       }
     }
   }
-
-  // ============================================================================
-  // ALIASES DE COMPATIBILIDADE COM TERMOS EM INGLÊS
-  // ============================================================================
-  init(server) { return this.inicializarServidor(server); }
-  registerClient(ws, meta) { this.registrarCliente(ws, meta); }
-  unregisterClient(ws) { return this.removerCliente(ws); }
-  getClientMeta(ws) { return this.obterMetadadosCliente(ws); }
-  getConnectedCount() { return this.obterTotalConectados(); }
-  broadcast(payload) { this.transmitirParaTodos(payload); }
-  notifyUser(userId, payload) { this.notificarApostador(userId, payload); }
 }
 
 const gateway = new GatewayWebSocket();

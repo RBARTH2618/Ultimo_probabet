@@ -230,7 +230,5 @@ function processarMensagemCliente(ws, mensagem, motor) {
 }
 
 module.exports = {
-  processarMensagemCliente,
-  // Alias de compatibilidade retroativa
-  handleClientMessage: processarMensagemCliente
+  processarMensagemCliente
 };

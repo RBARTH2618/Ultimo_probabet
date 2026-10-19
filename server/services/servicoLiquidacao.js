@@ -76,7 +76,5 @@ function liquidarApostasDaPartida(idPartida) {
 }
 
 module.exports = {
-  liquidarApostasDaPartida,
-  // Alias de compatibilidade retroativa
-  settleBetsForMatch: liquidarApostasDaPartida
+  liquidarApostasDaPartida
 };

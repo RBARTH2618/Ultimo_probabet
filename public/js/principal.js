@@ -56,22 +56,6 @@ window.demonstracaoReiniciarJogo = demonstracaoReiniciarJogo;
 window.demonstracaoFinalizarJogos = demonstracaoFinalizarJogos;
 window.demonstracaoAlterarNome = demonstracaoAlterarNome;
 
-// Aliases em Inglês para compatibilidade com os botões existentes dos templates HTML
-window.selectOdd = selecionarCotacao;
-window.filterSport = filtrarPorEsporte;
-window.removeSlipSelection = removerSelecaoCupom;
-window.setQuickStake = definirValorRapido;
-window.calculatePayout = calcularRetornoPotencial;
-window.submitBet = enviarAposta;
-window.closeModalAndGoToWallet = fecharModalEIrParaCarteira;
-window.requestCashOut = solicitarCashOut;
-window.switchWalletTab = trocarAbaCarteira;
-window.demoTriggerGoal = demonstracaoForcarGol;
-window.demoResetBalance = demonstracaoResetarSaldo;
-window.demoResetMatch = demonstracaoReiniciarJogo;
-window.demoFinishMatches = demonstracaoFinalizarJogos;
-window.demoChangeUserName = demonstracaoAlterarNome;
-
 // ==============================================================================
 // BOOTSTRAP DA APLICAÇÃO AO CARREGAR A PÁGINA
 // ==============================================================================
